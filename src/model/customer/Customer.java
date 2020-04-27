@@ -37,16 +37,9 @@ public class Customer {
 		this.customerEmail = customerEmail;
 	}
 
-	
-	
-	//toString method
-//	@Override
-//	public String toString() {
-//		return "Person [name=" + customerName + ", email=" + customerEmail + "]";
-//	}
 	@Override
 	public String toString() {
-		return "Customer ID: " + this.customerID + "/n Customer name:   "+this.customerName + "/n Customer email: "+this.customerEmail;
+		return "\nCustomer ID: " + this.customerID + " Name: "+this.customerName + " Email: "+this.customerEmail;
 	}
 	
 }
