@@ -7,16 +7,24 @@ import java.util.Scanner;
 
 import model.customer.Customer;
 import model.customer.MembershipOptions;
+import model.media.Movie;
+import model.media.Music;
+
+
 
 public class Controller {
 
 	private List<Customer> customerList = new ArrayList<>(); // arraylist of customers @WillianVoelz
+	private List<Movie> movieList = new ArrayList<>();
+	private List<Music> musicList = new ArrayList<>();
 	private int customerCount = 0; // counter for customer ID , it increases by 1 every customer added.	@WillianVoelz
 	boolean exitMainMenu = false; // boolean initialized for do while loop in the main Menu @WillianVoelz
 	private Scanner MainMenuOption; // scanner used in Main Menu user inputs @WillianVoelz
 	private Scanner adCust; // scanner used for customer registration ( name / email ) @WillianVoelz
-
+	private MediaController mc;
+	
 	public Controller() {
+		
 		Menu();
 
 	}
@@ -69,12 +77,16 @@ public class Controller {
 					break;
 				case 3:
 					System.out.println("Option 3");
+					mc = new MediaController();
+					mc.addMovie();
 					break;
 				case 4:
 					System.out.println("Option 4");
 					break;
 				case 5:
 					System.out.println("Option 5");
+					mc = new MediaController();
+					mc.searchMovie();
 					break;
 				case 6:
 					System.out.println("Option 6");
