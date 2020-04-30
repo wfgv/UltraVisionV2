@@ -4,25 +4,17 @@ package model.media;
 import model.media.*;
 
 
-//-----------------------------------------
-//higher abstract class for all media types
-//-----------------------------------------
-public abstract class Media {
+public abstract class Media {//higher abstract class for all media types
 	
-	//--------------------
 	//variable declaration
-	//--------------------
 	protected int mediaID;
 	protected String mediaName;
-	protected String mediaType;
+	protected Format mediaType;
 	protected int mediaReleaseYear;
 		
 	
-//	//------------------------------------
-//	//default constructor using all fields
-//	//------------------------------------
-	
-	public Media(int mediaID, String mediaName, String mediaType, int mediaReleaseYear) {
+	//default constructor using all fields
+	public Media(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear) {
 		super();
 		this.mediaID = mediaID;
 		this.mediaName = mediaName;
@@ -31,17 +23,12 @@ public abstract class Media {
 
 	}
 	
-
-	//-------------------------------------
 	//blank constructor using no parameters
-	//-------------------------------------
 	public Media() {
-			
+
 	}
 	
-	//-------------------
 	//Getters and Setters
-	//-------------------
 	public int getMediaID() {
 		return mediaID;
 	}
@@ -66,16 +53,15 @@ public abstract class Media {
 		this.mediaReleaseYear = mediaReleaseYear;
 	}
 	
-	public String getMediaType() {
+	public Format getMediaType() {
 		return mediaType;
 	}
 
-	public void setMediaType(String mediaType) {
+	public void setMediaType(Format mediaType) {
 		this.mediaType = mediaType;
 	}
 
-
-
+	//toString method
 	@Override
 	public String toString() {
 		return "Media [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType

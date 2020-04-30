@@ -5,7 +5,6 @@ package model.media;
 public enum Format {
 
 	//enum to handle the media format and it's description
-	
 	CD ("Compatc Disc"),
 	DVD ("Digital Video Disc"),
 	BluRay ("Bluray Disc");

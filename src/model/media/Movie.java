@@ -3,17 +3,19 @@
 package model.media;
 
 public class Movie extends Media {
-	
+
 	private String mediaGenre;
 	private String mediaDirector;
-	
-	public Movie(int mediaID, String mediaName, String mediaType, int mediaReleaseYear, String mediaGenre,
+
+	public Movie(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaGenre,
 			String mediaDirector) {
-		super(mediaID, mediaName, mediaType, mediaReleaseYear);
+		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
+		mediaID++;
 		this.mediaGenre = mediaGenre;
 		this.mediaDirector = mediaDirector;
 	}
 
+	//getters and setters
 	public int getMediaID() {
 		return mediaID;
 	}
@@ -23,7 +25,7 @@ public class Movie extends Media {
 	}
 
 	public String getMediaName() {
-		return mediaName;
+		return this.mediaName;
 	}
 
 	public void setMediaName(String mediaName) {
@@ -37,15 +39,7 @@ public class Movie extends Media {
 	public void setMediaReleaseYear(int mediaReleaseYear) {
 		this.mediaReleaseYear = mediaReleaseYear;
 	}
-	
-	public String getMediaType() {
-		return mediaType;
-	}
 
-	public void setMediaType(String mediaType) {
-		this.mediaType = mediaType;
-	}
-	
 	public String getMediaGenre() {
 		return mediaGenre;
 	}
@@ -62,19 +56,12 @@ public class Movie extends Media {
 		this.mediaDirector = mediaDirector;
 	}
 
+	//toString method
 	@Override
 	public String toString() {
 		return "Media [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", mediaGenre=" + mediaGenre + ", mediaDirector=" + mediaDirector + "]";
+				+ ", mediaReleaseYear=" + mediaReleaseYear + ", mediaGenre=" + mediaGenre + ", mediaDirector="
+				+ mediaDirector + "]";
 	}
-	
-	
 
-
-
-
-	
-
-
-	
 }
