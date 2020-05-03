@@ -21,7 +21,7 @@ public class Controller {
 	private Scanner MainMenuOption; // scanner used in Main Menu user inputs @WillianVoelz
 	private Scanner adCust; // scanner used for customer registration ( name / email ) @WillianVoelz
 	private Scanner menuOption; // scanner to be used inside the switch menu @EdwardsJr
-	private MediaController mc; //instantiating MediaController class @EdwardsJr
+	private MediaController mc; // instantiating MediaController class @EdwardsJr
 
 	public Controller() {
 
@@ -90,7 +90,6 @@ public class Controller {
 					if (option == 1) {
 						System.out.println("Adding a Movie record: ");
 						mc.addMovie();
-						//printMenu();
 					} else if (option == 2) {
 						System.out.println("Adding a Music record: ");
 						mc.addMusic();
@@ -112,7 +111,9 @@ public class Controller {
 					System.out.println("Option 5");// search
 					// if statement here to choose which type of media to search
 					mc = new MediaController();
-					mc.searchMovie();
+					//mc.searchMovie();
+					//mc.searchMedia();
+					mc.fillAllMedia();
 					break;
 				case 6:
 					System.out.println("Option 6");
