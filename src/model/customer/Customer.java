@@ -5,10 +5,10 @@ package model.customer;
 public class Customer {
 
 	//variables
-	private int customerID;
-	private String customerName;
-	private String customerEmail;
-	private MembershipOptions membershipOptions;
+	protected int customerID;
+	protected String customerName;
+	protected String customerEmail;
+	protected MembershipOptions membershipOptions;
 		
 	//constructor
 	public Customer(int customerID, String customerName, String customerEmail, MembershipOptions membershipOptions) {

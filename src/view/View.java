@@ -13,22 +13,23 @@ import model.media.Music;
 
 public class View {
 
-	Controller controller;
-	
-
-	private List<Customer> customerList = new ArrayList<>(); // arraylist of customers @WillianVoelz
-	 List<Movie> movieList = new ArrayList<>();
-	 List<Music> musicList = new ArrayList<>();
-	private int customerCount = 0; // counter for customer ID , it increases by 1 every customer added.
+	private Controller controller; // @WillianVoelz
 	private Scanner myScanner;
-	// @WillianVoelz
-	boolean exitMainMenu = false; // boolean initialized for do while loop in the main Menu @WillianVoelz
+	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
 	private Scanner menuOption; // scanner to be used inside the switch menu @EdwardsJr
 	private MediaController mc; // instantiating MediaController class @EdwardsJr
 
+	// UNUSED VARIABLES/ATTRIBUTES
+	// private List<Customer> customerList = new ArrayList<>(); // arraylist of
+	// customers @WillianVoelz
+	// private List<Movie> movieList = new ArrayList<>();
+	// private List<Music> musicList = new ArrayList<>();
+	// private int customerCount = 0; // counter for customer ID , it increases by 1
+	// every customer added.
+
 	public View(Controller controller) {
 		this.controller = controller;
-		//controller = new Controller();
+		// controller = new Controller();
 
 	}
 	// ---------- Method responsible for ONLY printing the Menu Options--------
@@ -51,7 +52,7 @@ public class View {
 	// -------------------------- Method responsible for ONLY printing the
 	// Membership Options --------------------------
 //		@WillianVoelz
-	public void printMembershipOptions() { 
+	public void printMembershipOptions() {
 		System.out.println("1 - MUSIC lover");
 		System.out.println("2 - VIDEO Lover");
 		System.out.println("3 - TV Lover");
@@ -68,10 +69,10 @@ public class View {
 			try {
 				printMenu(); // prompt
 				int choice; // used to store user choice
-				myScanner = new Scanner(System.in); // initialize Scanner called option
+				myScanner = new Scanner(System.in); // initialise Scanner called option
 				choice = myScanner.nextInt(); // nextInt to take user input and store in choice variable
 				exitMainMenu = false; // boolean set to false, it stops the program once true;
-				menuOption = new Scanner(System.in);// initialize Scanner for options inside the switch menu @EdwardsJr
+				menuOption = new Scanner(System.in);// initialise Scanner for options inside the switch menu @EdwardsJr
 
 				switch (choice) {
 				case 0:
@@ -84,6 +85,7 @@ public class View {
 					break;
 				case 2:
 					System.out.println("Option 2");
+					controller.searchCustomerByName();
 					break;
 				case 3:
 					System.out.println("Option 3");// add media
@@ -148,7 +150,7 @@ public class View {
 	public void exitQuestion() { // Simple if statement method that takes input from user to go ahead with
 									// operations.
 		// this method is designed to stop the Menu do/while loop. @WillianVoelz
-		System.out.println("\nReturn to Menu? Input 1 ");
+		System.out.println("\nPress: \n1 to menu ");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
 
@@ -157,6 +159,24 @@ public class View {
 		} else {
 
 			exitQuestion();
+		}
+
+	}
+
+	public void searchAnotherCustomer() { //  @WillianVoelz
+		
+		System.out.println("\nPress: \n1 to Menu  \n2 to search Another Customer ");
+		myScanner = new Scanner(System.in);
+		int choice = myScanner.nextInt();
+
+		if (choice == 1 || choice == 01) {
+			Menu();
+		
+		} else if( choice == 2 ||choice == 02){
+
+			controller.searchCustomerByName();
+		}else {
+			searchAnotherCustomer();
 		}
 
 	}
