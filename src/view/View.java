@@ -13,22 +13,21 @@ import model.media.Music;
 
 public class View {
 
-	private Controller controller; // @WillianVoelz
-	private Scanner myScanner;
+
+	private Controller controller;
+	//private Scanner myScanner;
 	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
+
+	private int customerCount = 0; // counter for customer ID , it increases by 1 every customer added.
+	private Scanner myScanner;// @WillianVoelz
+
 	private Scanner menuOption; // scanner to be used inside the switch menu @EdwardsJr
 	private MediaController mc; // instantiating MediaController class @EdwardsJr
 
-	// UNUSED VARIABLES/ATTRIBUTES
-	// private List<Customer> customerList = new ArrayList<>(); // arraylist of
-	// customers @WillianVoelz
-	// private List<Movie> movieList = new ArrayList<>();
-	// private List<Music> musicList = new ArrayList<>();
-	// private int customerCount = 0; // counter for customer ID , it increases by 1
-	// every customer added.
 
 	public View(Controller controller) {
 		this.controller = controller;
+		
 		// controller = new Controller();
 
 	}
@@ -41,12 +40,11 @@ public class View {
 		System.out.println("1 - Update Customer");
 		System.out.println("2 - Search Customer");
 		System.out.println("3 - Add Title");
-		System.out.println("4 - Update Title");
-		System.out.println("5 - Search Title");
-		System.out.println("6 - Rent Title");
-		System.out.println("7 - Return Title");
-		System.out.println("8 - Membership Options");
-		System.out.println("9 - Exit");
+		System.out.println("4 - Search Title");
+		System.out.println("5 - Rent Title");
+		System.out.println("6 - Return Title");
+		System.out.println("7 - Membership Options");
+		System.out.println("8 - Exit");
 	}
 
 	// -------------------------- Method responsible for ONLY printing the
@@ -87,8 +85,7 @@ public class View {
 					System.out.println("Option 2");
 					controller.searchCustomerByName();
 					break;
-				case 3:
-					System.out.println("Option 3");// add media
+				case 3://add media @EdwardsJr
 					mc = new MediaController();
 					System.out.println(
 							"Please select the type of media to be added:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
@@ -96,29 +93,50 @@ public class View {
 					if (option == 1) {
 						System.out.println("Adding a Movie record: ");
 						mc.addMovie();
-						// printMenu();
+						exitQuestion();
 					} else if (option == 2) {
 						System.out.println("Adding a Music record: ");
 						mc.addMusic();
+						exitQuestion();
 					} else if (option == 3) {
 						System.out.println("Adding a Live Concert record: ");
 						mc.addLiveConcert();
+						exitQuestion();
 					} else if (option == 4) {
 						System.out.println("Adding a Box Set record: ");
 						mc.addBoxSet();
+						exitQuestion();
 					} else if (option == 5) {
 						printMenu();
 					}
 					break;
-				case 4:
-					System.out.println("Option 4");// update media
-					// if statement here to choose which type of media to update
+				case 4://search media @EdwardsJr
+					mc = new MediaController();
+					System.out.println(
+							"Please select the type of media to search for:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
+					int option1 = menuOption.nextInt();
+					if (option1 == 1) {
+						System.out.println("Searching for movies: ");
+						mc.searchMovie();
+						exitQuestion();
+					} else if (option1 == 2) {
+						System.out.println("Searching for music: ");
+						mc.searchMusic();
+						exitQuestion();
+					} else if (option1 == 3) {
+						System.out.println("Searching for live concerts: ");
+						mc.searchLiveConcert();
+						exitQuestion();
+					} else if (option1 == 4) {
+						System.out.println("Search for TV Shows: ");
+						mc.searchBoxSet();
+						exitQuestion();
+					} else if (option1 == 5) {
+						printMenu();
+					}
 					break;
 				case 5:
-					System.out.println("Option 5");// search
-					// if statement here to choose which type of media to search
-					mc = new MediaController();
-					mc.searchMovie();
+					System.out.println("Option 5");
 					break;
 				case 6:
 					System.out.println("Option 6");
@@ -128,9 +146,6 @@ public class View {
 					break;
 				case 8:
 					System.out.println("Option 8");
-					break;
-				case 9:
-					System.out.println("Option 9");
 					exitMainMenu = true;
 					break;
 				default:
