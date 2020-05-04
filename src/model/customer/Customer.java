@@ -11,12 +11,12 @@ public class Customer {
 	protected MembershipOptions membershipOptions;
 		
 	//constructor
-	public Customer(int customerID, String customerName, String customerEmail, MembershipOptions membershipOptions) {
+	public Customer(int customerID, String customerName, String customerEmail) {
 		super();
 		this.customerID = customerID;
 		this.customerName = customerName;
 		this.customerEmail = customerEmail;
-		this.membershipOptions = membershipOptions;
+		
 	}
 	
 	//getters and setters
@@ -44,6 +44,7 @@ public class Customer {
 	public void setMembership(MembershipOptions membershipOptions) {
 		this.membershipOptions = membershipOptions;
 	}
+	
 
 	@Override
 	public String toString() {

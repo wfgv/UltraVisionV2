@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,40 +10,32 @@ import model.customer.MusicLover;
 import model.customer.Premium;
 import model.customer.TVLover;
 import model.customer.VideoLover;
-import model.media.Movie;
-import model.media.Music;
 import view.View;
 
 public class Controller {
-	
+
 	private View view; // initialising the link between view and controller
 	private List<Customer> customerList = new ArrayList<>(); // arraylist of customers @WillianVoelz
 	private List<MusicLover> musicLoverList = new ArrayList<MusicLover>();
 	private List<VideoLover> videoLoverList = new ArrayList<VideoLover>();
 	private List<TVLover> tvLoverList = new ArrayList<TVLover>();
 	private List<Premium> premiumList = new ArrayList<Premium>();
-	private int customerCount = 0; // counter for customer ID , it increases by 1 every customer added.
-	private Scanner myScanner;								// @WillianVoelz
+	private int customerCount = 1; // counter for customer ID , it increases by 1 every customer added.
+	private Scanner myScanner; // @WillianVoelz
 	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
-	
-	//UNUSED VARIABLES/ATTRIBUTES
-	//private Scanner menuOption; // scanner to be used inside the switch menu @EdwardsJr
-	//private MediaController mc; // instantiating MediaController class @EdwardsJr
-	//private List<Movie> movieList = new ArrayList<>();
-	//private List<Music> musicList = new ArrayList<>();
 
 	public Controller() {
 		view = new View(this);
-		//new ArrayList<>();
 		view.Menu();
 	}
 
-// -------------------------- New Customer Registration  --------------------------
-//	@WillianVoelz
-	 public void addCustomer() {
+	// -------------------------- New Customer Registration  --------------------------
+	//	@WillianVoelz
+	public void addCustomer() {
+		
 		myScanner = new Scanner(System.in);
 
-		int id = customerCount + 1;
+		int id = customerCount;
 		System.out.println("Enter customer Name: ");
 		String name = myScanner.nextLine();
 		System.out.println("Enter customer email: ");
@@ -57,7 +48,6 @@ public class Controller {
 		view.printMembershipOptions(); // prompt membership options
 		int membershipOption = myScanner.nextInt();
 		if (membershipOption == 1) { // if statements, create different Customers according to subscription chosen
-			//c1 = new Customer(id, name, email, MembershipOptions.MUSICLOVER);
 			ml = new MusicLover(id, name, email, MembershipOptions.MUSICLOVER);
 			customerList.add(ml);
 			musicLoverList.add(ml);
@@ -78,44 +68,89 @@ public class Controller {
 		System.out.println(name + " was succesfully added as a customer!");
 		System.out.println("ID Number: " + id);
 		System.out.println("email: " + email);
-		//System.out.println("Subscription: " + ml.getMembership());
-		
+		// System.out.println("Subscription: " + ml.getMembership());
+
 		customerCount = customerCount + 1; // add +1 for the ID variable each new customer created.
-		
-		view.exitQuestion(); // method that doesn't let the Menu loop back instantly
-								// it requires user permission before.
+
+		view.addAnotherCustomerQuestion(); // method that doesn't let the Menu loop back instantly
+		// it requires user permission beforehand.
 
 	}
 
-// -------------------------- View Customer - print arrayList with all details (test purposes )--------------------------
-//	@WillianVoelz	
-	public void viewCustomer() { // to be later converted to search Methods
-		System.out.println("All customers registered:");
-		System.out.println(musicLoverList);
+	// ----------------- View Customer - print arrayList with all details (test purposes )--------------------------
+	//	@WillianVoelz	
+	public void viewCustomer() { 
 		
+		System.out.println("All customers registered:");
+		//System.out.println(musicLoverList);
+		//System.out.println(tvLoverList);
+		//System.out.println(videoLoverList);
+		//System.out.println(premiumList);
 		System.out.println(customerList);
 	}
-// -------------------------- View Customer - print arrayList with all details (test purposes )--------------------------
+
+	// -------------- Search customer by NAME ------------------
+	// @WillianVoelz
 	public void searchCustomerByName() {
+		
 		myScanner = new Scanner(System.in);
 		System.out.println("Enter Name: ");
-		String targetName = myScanner.nextLine();
-		 
-		    Customer result = null;
-		    for (Customer c : customerList) {
-		        if (targetName.equals(c.getName())) {
-		            result = c;
-		            break;
-		            
-		        }else {
-		        	System.out.println("Customer not found ");
-		        	view.searchAnotherCustomer();
-		        }
-		        
-		    }
-		    System.out.println("Customer found: ");
-		    System.out.println(result);
-		    view.searchAnotherCustomer();
-	}
+		String inputName = myScanner.nextLine();
+		Customer result = null;
 
+		for (Customer c : customerList) {
+			if (inputName.equalsIgnoreCase(c.getName())) {
+				result = c;
+				System.out.println("Customer found: ");
+				System.out.println(result);
+				view.searchAnotherCustomer();
+			}
+		}
+		System.out.println("Customer not found");
+		view.searchAnotherCustomer();
+	}
+	// -------------- Search customer by NAME ------------------
+	// @WillianVoelz
+	public void searchCustomerByID() {
+		
+		myScanner = new Scanner(System.in);
+		System.out.println("Enter ID: ");
+		int targetID = myScanner.nextInt();
+		Customer result = null;
+
+		for (Customer c : customerList) {
+			if (targetID == c.getID()) {
+				result = c;
+				System.out.println("Customer found: ");
+				System.out.println(result);
+				view.searchAnotherCustomer();
+
+			}
+		}
+		System.out.println("Customer not found");
+		view.searchAnotherCustomer();
+
+	}
+	
+	// -------------- Update customer Subscription using customer ID ------------------
+	// @WillianVoelz
+	public void updateSubscription() {
+		myScanner = new Scanner(System.in);
+		System.out.println("Input Member ID: ");
+		int customerID = myScanner.nextInt();
+
+		System.out.println("Update to: \n1-Music Lover \n2-VideoLover \n3-TVLover \n4-Premium");
+		int newSubscription = myScanner.nextInt();
+
+		if (newSubscription == 1) {
+			customerList.get(customerID - 1).setMembership(MembershipOptions.MUSICLOVER);
+		} else if (newSubscription == 2) {
+			customerList.get(customerID - 1).setMembership(MembershipOptions.VIDEOLOVER);
+		} else if (newSubscription == 3) {
+			customerList.get(customerID - 1).setMembership(MembershipOptions.TVLOVER);
+		} else if (newSubscription == 4) {
+			customerList.get(customerID - 1).setMembership(MembershipOptions.PREMIUM);
+		}
+		System.out.println("Customer subscription updated");
+	}
 }
