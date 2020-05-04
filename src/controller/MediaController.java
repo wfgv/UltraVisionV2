@@ -2,18 +2,15 @@
 
 package controller;
 
-import java.awt.Menu;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.midi.Soundbank;
-
-import org.w3c.dom.css.Counter;
-
+import model.customer.Customer;
 import model.media.BoxSet;
 import model.media.Format;
 import model.media.LiveConcert;
@@ -23,21 +20,25 @@ import model.media.Music;
 
 public class MediaController {
 
-	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader to be accessible to all methods																							// to be accessible to all
+	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader
+																							// to be accessible to all
+																							// methods // to be
+																							// accessible to all
 	private static Scanner scanner = new Scanner(System.in);// declaring Scanner to be accessible to all methods
-	private List<Movie> movieList = new ArrayList<>();// movie arraylist
+	private List<Movie> movieList;// movie arraylist
 	private List<Music> musicList = new ArrayList<>();// music arraylist
 	private List<LiveConcert> liveConcertList = new ArrayList<>();// live concert arraylist
 	private List<BoxSet> boxSetList = new ArrayList<>();// boxset arraylist
-	private List<List<Media>> allMediaList = new ArrayList<>();
+	// private List<List<Media>> allMediaList = new ArrayList<>();
 	Movie movie;// variable to handle movie objects
 	Music music;// variable to handle music objects
 	LiveConcert liveConcert;// variable to handle live concert objects
 	BoxSet boxSet;// variable to handle boxset objects
-	Media allMedia;
+//	View view;
+	// Media allMedia;
 	int counter = 0;
 
-	public Music addMusic() {
+	public void addMusic() {
 
 		// local variables
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -61,13 +62,18 @@ public class MediaController {
 
 		music = new Music(mediaID, mediaName, mediaReleaseYear, mediaBandName);// creating a new object music
 		musicList.add(music);// adding the object to the arraylist
-		System.out.println("Record: " + mediaName + " was succesfully created!");
-		System.out.println(music);
 
-		return music;
+		System.out.println("Music record succesfully added!");
+		System.out.println("ID Number " + mediaID);
+		System.out.println("Record name: " + mediaName);
+		System.out.println("Release year: " + mediaReleaseYear);
+		System.out.println("Band/Artist: " + mediaBandName);
+
 	}
 
-	public Movie addMovie() {
+	public void addMovie() {
+
+		movieList = fillMovieList();//bring the populated array
 
 		br = new BufferedReader(new InputStreamReader(System.in));
 		int mediaID = counter++;// increasing the ID
@@ -100,6 +106,7 @@ public class MediaController {
 			mediaGenre = br.readLine();
 			System.out.println("Enter the director: ");
 			mediaDirector = br.readLine();
+			System.out.println("");
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -107,23 +114,18 @@ public class MediaController {
 		}
 
 		movie = new Movie(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre, mediaDirector);
-		movieList.add(movie);
-		//System.out.println(movieList.toString());
+		//movieList.add(movie);
+		movieList.add((mediaID + 1), movie);
 
-		
 		// ask to confirm object creation
-		System.out.println("Movie: " + movie.getMediaName() + " was succesfully created!");//change to look like the customer method
-		System.out.println(movie);
-		System.out.println("");
-		System.out.println("Would you like to add another movie? \n1 - Yes \n2 - No");
-		choice = scanner.nextInt();
-		if (choice == 1) {
-			addMovie();
+		System.out.println("Movie was successfully created!\n");
+		System.out.println("ID Number: " + movie.getMediaID());
+		System.out.println("Title: " + movie.getMediaName());
+		System.out.println("Format: " + mediaType.getDescription());
+		System.out.println("Release Year: " + movie.getMediaReleaseYear());
+		System.out.println("Genre: " + movie.getMediaGenre());
+		System.out.println("Director: " + movie.getMediaDirector());
 
-		} else if (choice == 2) {
-			new Menu();
-		}
-		return movie;
 	}
 
 	public LiveConcert addLiveConcert() {
@@ -176,7 +178,7 @@ public class MediaController {
 	public BoxSet addBoxSet() {
 
 		br = new BufferedReader(new InputStreamReader(System.in));
-		//scanner = new Scanner(System.in);
+		// scanner = new Scanner(System.in);
 		int mediaID = counter++;// increasing the ID
 		String mediaName = null;
 		Format mediaType = null;
@@ -223,145 +225,101 @@ public class MediaController {
 		return boxSet;
 	}
 
-	public void searchMedia() {
-
-		scanner = new Scanner(System.in);
-		int choice;
-		System.out.println("Please, choose which kind of media you would like to search for:");
-		System.out.println("\n1 - Movie \n2 - Music \n3 - Live Concert \n4 - Box Set \n5 - All Media");// add option to search for ALL MEDIA
-		choice = scanner.nextInt();
-		if (choice == 1) {
-			Scanner sc1 = new Scanner(System.in);
-			Movie searchedMovie = null;
-			movieList = fillMovieList();
-			System.out.println("Type the name of the movie: ");
-			String search = sc1.nextLine();
-
-			for (Movie myMovie : movieList) {
-				if (myMovie.getMediaName() != null && myMovie.getMediaName().equals(search)) {
-					searchedMovie = myMovie;
-					System.out.println("Here are the results:\n");
-					System.out.println(searchedMovie.toString());
-
-				}
-				
-			}
-		} else if (choice == 2) {
-			Music searchedMusic = null;
-			musicList = fillMusicList();
-			System.out.println("Type the name of the album: ");
-			String search = scanner.nextLine();
-
-			for (Music myMusic : musicList) {
-				if (myMusic.getMediaName() != null && myMusic.getMediaName().equals(search)) {
-					searchedMusic = myMusic;
-					System.out.println("Here are the results:\n");
-					System.out.println(searchedMusic.toString());
-				}
-				// if statement to (1) make another search or (2) return to menu --> inside a external method view.method();
-			}
-		} else if (choice == 3) {
-			LiveConcert searchedLiveConcert = null;
-			liveConcertList = fillLiveConcertList();
-			System.out.println("Type the name of the live concert music/video ");
-			String search = scanner.nextLine();
-
-			for (LiveConcert myLiveConcert : liveConcertList) {
-				if (myLiveConcert.getMediaName() != null && myLiveConcert.getMediaName().equals(search)) {
-					searchedLiveConcert = myLiveConcert;
-					System.out.println("Here are the results:\n");
-					System.out.println(searchedLiveConcert.toString());
-				}
-				// return searchedLiveConcert;
-			}
-		} else if (choice == 4) {
-			BoxSet searchedBoxSet = null;
-			boxSetList = fillBoxSetList();
-			System.out.println("Type the name of the TV show ");
-			String search = scanner.nextLine();
-
-			for (BoxSet myBoxSet : boxSetList) {
-				if (myBoxSet.getMediaName() != null && myBoxSet.getMediaName().equals(search)) {
-					searchedBoxSet = myBoxSet;
-					System.out.println("Here are the results:\n");
-					System.out.println(searchedBoxSet.toString());
-				}
-				// return searchedBoxSet;
-			}
-		} else if (choice == 5) {
-			//Media searchedAllMedia = null;
-			allMediaList = fillAllMedia();
-			System.out.println(allMediaList);
-//			System.out.println("Type the name: ");
-//			String search = scanner.nextLine();
-			
-//			for (List<Media> myMedia : allMediaList) {
-//				if(myMedia(search)) {
-//					searchedAllMedia = myMedia;
-//					
-//				}
-			}
-			
-			
-		}
-
-		// return null;
-		//List<List<Media>> allMediaList = new ArrayList<>();
-
-	
-
-	// updateMovie(searchMovie());
-	// public Movie updateMovie(Movie movie)
 	public Movie searchMovie() {
 
 		Movie searchedMovie = null;
 		movieList = fillMovieList();
-		//int option = 0;
 		System.out.println("Search movies by Name, Genre ou Director: ");
-		String searchString = scanner.nextLine();
+		String search = scanner.nextLine();
 
 		for (Movie myMovie : movieList) {
-			if (myMovie.getMediaName() != null && myMovie.getMediaName().equals(searchString)
-					|| (myMovie.getMediaGenre() != null) && myMovie.getMediaGenre().equals(searchString)
-					|| (myMovie.getMediaDirector() != null) && myMovie.getMediaDirector().equals(searchString)) {
+			if (myMovie.getMediaName() != null && myMovie.getMediaName().equalsIgnoreCase(search)
+					&& myMovie.getMediaName().matches("^[a-zA-Z]*$")
+					|| (myMovie.getMediaGenre() != null) && myMovie.getMediaGenre().equalsIgnoreCase(search)
+							&& myMovie.getMediaGenre().matches("^[a-zA-Z]*$")
+					|| (myMovie.getMediaDirector() != null && myMovie.getMediaDirector().equalsIgnoreCase(search)
+							&& myMovie.getMediaDirector().matches("^[a-zA-Z]*$"))) {
 				searchedMovie = myMovie;
 				System.out.println("Here are the results:\n");
-				System.out.println(searchedMovie.toString());
+				System.out.println("ID: " + searchedMovie.getMediaID());
+				System.out.println("Title: " + searchedMovie.getMediaName().toString());
+//				System.out.println("Format: " + searchedMovie.getMediaType();
+				System.out.println("Genre " + searchedMovie.getMediaGenre().toString());
+				System.out.println("Director " + searchedMovie.getMediaDirector().toString());
 				System.out.println("");
-				System.out.println("Choose: \n1 - Make another search \n2 - Update selected \n3 - Delete selected");
-				int option = scanner.nextInt();
-				if (option == 1) {
-					searchMovie();
-				} else if (option == 2) {
-					updateMovie(searchMovie());
-				} else if (option == 3) {
-					movieList.remove(searchedMovie);
-					//deleteMovie(searchMovie());
-					System.out.println("The movie was deleted!");
-				}
 			}
 		}
 		return searchedMovie;
-
 	}
 
-	public void deleteMovie(Movie movie) {
-		//System.out.println("Enter the movie ID: ");
-		//int nameID = scanner.nextInt();
-		//scanner.next();
-		movieList.remove(searchMovie());
-		//movieList.remove(searchMovie());
-		
+	public Music searchMusic() {
 
-		System.out.println("Movie " + searchMovie() + " was sucessfully removed");
-		//return movie;
+		Music searchedMusic = null;
+		musicList = fillMusicList();
+		System.out.println("Search music by Artist Name or Title: ");
+		String search = scanner.nextLine();
 
+		for (Music myMusic : musicList) {
+			if (myMusic.getMediaName() != null && myMusic.getMediaName().equalsIgnoreCase(search)
+					&& myMusic.getMediaName().matches("^[a-zA-Z]*$")
+					|| (myMusic.getMediaBandName() != null && myMusic.getMediaBandName().equalsIgnoreCase(search)
+							&& myMusic.getMediaBandName().matches("^[a-zA-Z]*$"))) {
+				searchedMusic = myMusic;
+				System.out.println("Here are the results:\n");
+				System.out.println("ID: " + searchedMusic.getMediaID());
+				System.out.println("Artist/Band: " + searchedMusic.getMediaBandName().toString());
+				System.out.println("Album name: " + searchedMusic.getMediaName().toString());
+				System.out.println("");
+			}
+		}
+		return searchedMusic;
 	}
 
-	public void updateMovie(Movie movie) {
-		
-		
-		
+	public LiveConcert searchLiveConcert() {
+
+		LiveConcert searchedLiveConcert = null;
+		liveConcertList = fillLiveConcertList();
+		System.out.println("Search Live Concerts by Artist Name or Title:  ");
+		String search = scanner.nextLine();
+
+		for (LiveConcert myLiveConcert : liveConcertList) {
+			if (myLiveConcert.getMediaName() != null && myLiveConcert.getMediaName().equalsIgnoreCase(search)
+					&& myLiveConcert.getMediaName().matches("^[a-zA-Z]*$")
+					|| (myLiveConcert.getMediaBandName() != null
+							&& myLiveConcert.getMediaBandName().equalsIgnoreCase(search)
+							&& myLiveConcert.getMediaBandName().matches("^[a-zA-Z]*$"))) {
+				searchedLiveConcert = myLiveConcert;
+				System.out.println("Here are the results:\n");
+				System.out.println("ID: " + searchedLiveConcert.getMediaID());
+				System.out.println("Artist/Band: " + searchedLiveConcert.getMediaBandName().toString());
+				System.out.println("Album name: " + searchedLiveConcert.getMediaName().toString());
+				System.out.println("");
+			}
+		}
+		return searchedLiveConcert;
+	}
+
+	public BoxSet searchBoxSet() {
+
+		BoxSet searchedBoxSet = null;
+		boxSetList = fillBoxSetList();
+		System.out.println("Seach TV Shows by Title or Genre: ");
+		String search = scanner.nextLine();
+
+		for (BoxSet myBoxSet : boxSetList) {
+			if (myBoxSet.getMediaName() != null && myBoxSet.getMediaName().equalsIgnoreCase(search)
+					&& myBoxSet.getMediaName().matches("^[a-zA-Z]*$")
+					|| (myBoxSet.getMediaGenre() != null && myBoxSet.getMediaGenre().equalsIgnoreCase(search)
+							&& myBoxSet.getMediaGenre().matches("^[a-zA-Z]*$"))) {
+				searchedBoxSet = myBoxSet;
+				System.out.println("Here are the results:\n");
+				System.out.println("ID: " + searchedBoxSet.getMediaID());
+				System.out.println("Title: " + searchedBoxSet.getMediaName().toString());
+				System.out.println("Genre: " + searchedBoxSet.getMediaGenre().toString());
+				System.out.println("Number os Seasons " + searchedBoxSet.getnumberOfSeasons());
+			}
+		}
+		return searchedBoxSet;
 	}
 
 	// methods to fill the arrays with data
@@ -438,30 +396,36 @@ public class MediaController {
 		return movieList;
 
 	}
-	
+
 	public List<Media> fillAllMedia() {
-		
+
 		List<Media> allMediaList = new ArrayList<>();
 		List<Movie> movieList = new ArrayList<>();
 		List<Music> musicList = new ArrayList<>();
 		List<LiveConcert> liveConcertList = new ArrayList<>();
 		List<BoxSet> boxSetList = new ArrayList<>();
-		
+
 		fillMovieList();
 		fillBoxSetList();
 		fillLiveConcertList();
-		fillMusicList();		
-		
+		fillMusicList();
+
 		allMediaList.addAll(liveConcertList);
 		allMediaList.addAll(musicList);
 		allMediaList.addAll(movieList);
 		allMediaList.addAll(boxSetList);
-		
-		
+
 		System.out.println(allMediaList);
 		return allMediaList;
-		
-		
+
 	}
+
+//	public List<Movie> getMovieList() {
+//		return fillMovieList();
+//	}
+//
+//	public void setMovieList(List<Movie> movieTest) {
+//		this.movieList = movieTest;
+//	}
 
 }

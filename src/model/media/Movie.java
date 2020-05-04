@@ -15,6 +15,10 @@ public class Movie extends Media {
 		this.mediaDirector = mediaDirector;
 	}
 
+	public Movie(String mediaName) {
+		setMediaName(mediaName);
+	}
+
 	//getters and setters
 	public int getMediaID() {
 		return mediaID;

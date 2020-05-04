@@ -1,8 +1,6 @@
 //@EdwardsJr 2018245//
 
 package model.media;
-import model.media.*;
-
 
 public abstract class Media {//higher abstract class for all media types
 	
