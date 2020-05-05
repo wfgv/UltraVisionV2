@@ -11,32 +11,41 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.customer.Customer;
+import model.customer.MembershipOptions;
 import model.media.BoxSet;
 import model.media.Format;
 import model.media.LiveConcert;
 import model.media.Media;
 import model.media.Movie;
 import model.media.Music;
+import view.View;
 
 public class MediaController {
 
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader
 																							// to be accessible to all
 																							// methods // to be
-																							// accessible to all
+	private Controller controller;																						// accessible to all
 	private static Scanner scanner = new Scanner(System.in);// declaring Scanner to be accessible to all methods
+	private List<Media> mediaList = new ArrayList<Media>();
 	private List<Movie> movieList;// movie arraylist
 	private List<Music> musicList = new ArrayList<>();// music arraylist
 	private List<LiveConcert> liveConcertList = new ArrayList<>();// live concert arraylist
 	private List<BoxSet> boxSetList = new ArrayList<>();// boxset arraylist
-	// private List<List<Media>> allMediaList = new ArrayList<>();
+	 private List<List<Media>> allMediaList = new ArrayList<>();
 	Movie movie;// variable to handle movie objects
 	Music music;// variable to handle music objects
 	LiveConcert liveConcert;// variable to handle live concert objects
 	BoxSet boxSet;// variable to handle boxset objects
-//	View view;
+	//View view = new View(controller, null);
 	// Media allMedia;
 	int counter = 0;
+	
+	public MediaController() {
+		//view = new View (controller, this);
+		fillMovieList();
+		//view.Menu();
+	}
 
 	public void addMusic() {
 
@@ -73,10 +82,10 @@ public class MediaController {
 
 	public void addMovie() {
 
-		movieList = fillMovieList();//bring the populated array
+		//movieList = fillMovieList();//bring the populated array
 
 		br = new BufferedReader(new InputStreamReader(System.in));
-		int mediaID = counter++;// increasing the ID
+		int mediaID = counter;// increasing the ID
 		String mediaName = null;
 		Format mediaType = null;
 		int mediaReleaseYear = 0;
@@ -112,10 +121,9 @@ public class MediaController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		movie = new Movie(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre, mediaDirector);
+		mediaList.add(new Movie(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre,mediaDirector, MembershipOptions.VIDEOLOVER));
 		//movieList.add(movie);
-		movieList.add((mediaID + 1), movie);
+		mediaList.add((mediaID + 1), movie);
 
 		// ask to confirm object creation
 		System.out.println("Movie was successfully created!\n");
@@ -125,7 +133,15 @@ public class MediaController {
 		System.out.println("Release Year: " + movie.getMediaReleaseYear());
 		System.out.println("Genre: " + movie.getMediaGenre());
 		System.out.println("Director: " + movie.getMediaDirector());
+		System.out.println(mediaList);
+		//view.exitQuestion();
+		
 
+	}
+	public void viewMediaList() {
+		System.out.println(mediaList);
+		//view.exitQuestion();
+		
 	}
 
 	public LiveConcert addLiveConcert() {
@@ -228,7 +244,7 @@ public class MediaController {
 	public Movie searchMovie() {
 
 		Movie searchedMovie = null;
-		movieList = fillMovieList();
+		//movieList = fillMovieList();
 		System.out.println("Search movies by Name, Genre ou Director: ");
 		String search = scanner.nextLine();
 
@@ -378,22 +394,22 @@ public class MediaController {
 		return boxSetList;
 	}
 
-	public List<Movie> fillMovieList() {
+	public void fillMovieList() {
 
-		List<Movie> movieList = new ArrayList<>();
-		Movie movie1 = new Movie(001, "Bacurau", Format.BluRay, 1995, "Horror", "Hitchcock");
-		Movie movie2 = new Movie(002, "Parasite", Format.DVD, 2019, "Thriller", "PT Anderson");
-		Movie movie3 = new Movie(003, "Melancholia", Format.BluRay, 2015, "Drama", "Lars Von Trier");
-		Movie movie4 = new Movie(004, "Psycho", Format.DVD, 1970, "Horror", "Hitchcock");
-		Movie movie5 = new Movie(005, "Swallow", Format.BluRay, 1995, "Comedy", "Coffin Joe");
+		//List<Media> mediaList = new ArrayList<>();
+		Movie movie1 = new Movie(001, "Bacurau", Format.BluRay, 1995, "Horror", "Hitchcock", MembershipOptions.VIDEOLOVER);
+		Movie movie2 = new Movie(002, "Parasite", Format.DVD, 2019, "Thriller", "PT Anderson", MembershipOptions.VIDEOLOVER);
+		Movie movie3 = new Movie(003, "Melancholia", Format.BluRay, 2015, "Drama", "Lars Von Trier", MembershipOptions.VIDEOLOVER);
+		Movie movie4 = new Movie(004, "Psycho", Format.DVD, 1970, "Horror", "Hitchcock", MembershipOptions.VIDEOLOVER);
+		Movie movie5 = new Movie(005, "Swallow", Format.BluRay, 1995, "Comedy", "Coffin Joe", MembershipOptions.VIDEOLOVER);
 
-		movieList.add(movie1);
-		movieList.add(movie2);
-		movieList.add(movie3);
-		movieList.add(movie4);
-		movieList.add(movie5);
+		mediaList.add(movie1);
+		mediaList.add(movie2);
+		mediaList.add(movie3);
+		mediaList.add(movie4);
+		mediaList.add(movie5);
 
-		return movieList;
+	//	return movieList;
 
 	}
 

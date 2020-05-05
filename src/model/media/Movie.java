@@ -2,17 +2,20 @@
 
 package model.media;
 
+import model.customer.MembershipOptions;
+
 public class Movie extends Media {
 
 	private String mediaGenre;
 	private String mediaDirector;
 
 	public Movie(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaGenre,
-			String mediaDirector) {
+			String mediaDirector, MembershipOptions membershipOptions) {
 		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
-		mediaID++;
+	//	mediaID++;
 		this.mediaGenre = mediaGenre;
 		this.mediaDirector = mediaDirector;
+		this.membershipOptions = membershipOptions;
 	}
 
 	//getters and setters
@@ -54,14 +57,20 @@ public class Movie extends Media {
 
 	public void setMediaDirector(String mediaDirector) {
 		this.mediaDirector = mediaDirector;
+		
+		
 	}
 
-	//toString method
 	@Override
 	public String toString() {
-		return "Media [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", mediaGenre=" + mediaGenre + ", mediaDirector="
-				+ mediaDirector + "]";
+		return "\nMovie [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
+				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
+				+ ", mediaGenre=" + mediaGenre + ", mediaDirector=" + mediaDirector + "]";
 	}
+
+
+
+	//toString method
+
 
 }

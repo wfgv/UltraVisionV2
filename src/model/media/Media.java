@@ -2,13 +2,16 @@
 
 package model.media;
 
-public abstract class Media {//higher abstract class for all media types
+import model.customer.MembershipOptions;
+
+public class Media {
 	
 	//variable declaration
 	protected int mediaID;
 	protected String mediaName;
 	protected Format mediaType;
-	protected int mediaReleaseYear;
+	protected int  mediaReleaseYear;
+	protected  MembershipOptions membershipOptions;
 		
 	
 	//default constructor using all fields
@@ -18,13 +21,13 @@ public abstract class Media {//higher abstract class for all media types
 		this.mediaName = mediaName;
 		this.mediaType = mediaType;
 		this.mediaReleaseYear = mediaReleaseYear;
-
+		
 	}
 	
-	//blank constructor using no parameters
-	public Media() {
-
-	}
+//	//blank constructor using no parameters
+//	public Media() {
+//
+//	}
 	
 	//Getters and Setters
 	public int getMediaID() {
@@ -58,13 +61,24 @@ public abstract class Media {//higher abstract class for all media types
 	public void setMediaType(Format mediaType) {
 		this.mediaType = mediaType;
 	}
+	
+	public MembershipOptions getMembershipOptions() {
+		return membershipOptions;
+	}
 
+	public void setMembershipOptions(MembershipOptions membershipOptions) {
+		this.membershipOptions = membershipOptions;
+	}
+	
 	//toString method
 	@Override
 	public String toString() {
 		return "Media [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + "]";
+				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions + "]";
 	}
+
+	
+
 	
 	
 
