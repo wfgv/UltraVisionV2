@@ -5,13 +5,16 @@
 
 package model.media;
 
+import model.customer.MembershipOptions;
+
 public class LiveConcert extends Media {
 
 	private String mediaBandName;
 
-	public LiveConcert(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaBandName) {
+	public LiveConcert(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaBandName, MembershipOptions membershipOptions) {
 		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
 		this.mediaBandName = mediaBandName;
+		this.membershipOptions = membershipOptions;
 	}
 
 	public int getMediaID() {
@@ -46,10 +49,12 @@ public class LiveConcert extends Media {
 		this.mediaBandName = mediaBandName;
 	}
 
+	//toString method
 	@Override
 	public String toString() {
-		return "LiveConcert [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", mediaBandName=" + mediaBandName + "]";
+		return "Music [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
+				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
+				+ ", mediaBandName=" + mediaBandName + "]";
 	}
 	
 	

@@ -57,20 +57,14 @@ public class Movie extends Media {
 
 	public void setMediaDirector(String mediaDirector) {
 		this.mediaDirector = mediaDirector;
-		
-		
 	}
-
+	
+	//toString method
 	@Override
 	public String toString() {
 		return "\nMovie [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
 				+ ", mediaGenre=" + mediaGenre + ", mediaDirector=" + mediaDirector + "]";
 	}
-
-
-
-	//toString method
-
 
 }

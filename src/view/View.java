@@ -117,18 +117,14 @@ public class View {
 					if (option == 1) {
 						System.out.println("Adding a Movie record: ");
 						controller.addMovie();
-						//exitQuestion();
 					} else if (option == 2) {
 						System.out.println("Adding a Music record: ");
-						//mediacontroller.addMusic();
-						exitQuestion();
+						controller.addMusic();
 					} else if (option == 3) {
 						System.out.println("Adding a Live Concert record: ");
-						//mediacontroller.addLiveConcert();
-						exitQuestion();
+						controller.addLiveConcert();
 					} else if (option == 4) {
 						System.out.println("Adding a Box Set record: ");
-						//mediacontroller.addBoxSet();
 						exitQuestion();
 					} else if (option == 5) {
 						printMenu();

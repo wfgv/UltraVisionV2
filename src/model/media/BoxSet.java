@@ -2,16 +2,19 @@
 
 package model.media;
 
+import model.customer.MembershipOptions;
+
 public class BoxSet extends Media {
 
 	private String mediaGenre;
 	private int numberOfSeasons;
 
 	public BoxSet(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, 
-			String mediaGenre, int numberOfSeasons) {
+			String mediaGenre, int numberOfSeasons, MembershipOptions membershipOptions) {
 		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
 		this.mediaGenre = mediaGenre;
 		this.numberOfSeasons = numberOfSeasons;
+		this.membershipOptions = membershipOptions;
 	}
 
 	//getters and setters
@@ -59,8 +62,12 @@ public class BoxSet extends Media {
 	@Override
 	public String toString() {
 		return "BoxSet [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear +  ", mediaGenre=" + mediaGenre + ", numberOfSeasons=" + numberOfSeasons + "]";
+				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
+				+ ", mediaGenre=" + mediaGenre + ", numberOfSeasons=" + numberOfSeasons + "]";
 	}
+
+	
+	
 
 	
 
