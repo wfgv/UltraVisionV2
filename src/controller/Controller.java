@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -251,41 +252,44 @@ public class Controller {
 		customerList.add(videoLover1);
 		customerList.add(TVLover1);
 		customerList.add(premium1);
-
 	}
 
-// 
-	// Methods split ------------------------------------------------
+	/*
+	 * -------- From this point, all methods are related to Media manipulation. We
+	 * had problems working with two different controllers, so the solution was
+	 * put all the code in the same controller.
+	 * 
+	 * @EdwardsJr
+	 * ---------
+	 */
+	
+	//all the comments for addMedia methods in general are in the addMovie method only @EdwardsJr
 	public void addMovie() {
 
 		br = new BufferedReader(new InputStreamReader(System.in));
-
-		int mediaID = mediaCounter;// increasing the ID
+		int mediaID = mediaList.size() + 1;//checking the size of the array to create new ID
 		String mediaName = null;
 		Format mediaType = null;
 		int mediaReleaseYear = 0;
 		String mediaGenre = null;
 		String mediaDirector = null;
 		int choice = 0;
-		// Movie movie = null;
 
 		try {
 			scannerMedia = new Scanner(System.in);
 			System.out.println("Enter movie title: ");
 			mediaName = br.readLine();
-
 			try {
 				System.out.println("Enter media type: \n1 - DVD \n2 - BluRay");
 				choice = scannerMedia.nextInt();
 				if (choice == 1) {
-					mediaType = Format.DVD;
+					mediaType = Format.DVD;//defined by enum
 				} else if (choice == 2) {
 					mediaType = Format.BluRay;
 				}
 			} catch (Exception e) {
 				System.out.println("Please, use one of the options");
 			}
-
 			System.out.println("Enter the release year: ");
 			mediaReleaseYear = Integer.parseInt(br.readLine());
 			System.out.println("Enter the genre: ");
@@ -299,27 +303,24 @@ public class Controller {
 			e.printStackTrace();
 		}
 		mediaList.add(new Movie(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre, mediaDirector,
-				MembershipOptions.VIDEOLOVER));
+				MembershipOptions.VIDEOLOVER));//creating new object and adding to the list 
 
-		System.out.println("Movie was successfully created!\n");
+		System.out.println("\nMovie successfully created!");//printing the results
 		System.out.println("ID Number: " + mediaID);
 		System.out.println("Title: " + mediaName);
 		System.out.println("Format: " + mediaType);
 		System.out.println("Release Year: " + mediaReleaseYear);
 		System.out.println("Genre: " + mediaGenre);
 		System.out.println("Director: " + mediaDirector);
-		System.out.println(mediaList);
 
-		mediaCounter = mediaCounter + 1;
-		view.exitQuestion();
+		view.addAnotherMediaDialog();
 
 	}
 
 	public void addBoxSet() {
 
 		br = new BufferedReader(new InputStreamReader(System.in));
-
-		int mediaID = mediaCounter;// increasing the ID
+		int mediaID = mediaList.size() + 1;
 		String mediaName = null;
 		Format mediaType = null;
 		int mediaReleaseYear = 0;
@@ -331,7 +332,6 @@ public class Controller {
 			scannerMedia = new Scanner(System.in);
 			System.out.println("Enter TV Show title: ");
 			mediaName = br.readLine();
-
 			try {
 				System.out.println("Enter media type: \n1 - DVD \n2 - BluRay");
 				choice = scannerMedia.nextInt();
@@ -343,7 +343,6 @@ public class Controller {
 			} catch (Exception e) {
 				System.out.println("Please, use one of the options");
 			}
-
 			System.out.println("Enter the release year: ");
 			mediaReleaseYear = Integer.parseInt(br.readLine());
 			System.out.println("Enter the genre: ");
@@ -359,25 +358,22 @@ public class Controller {
 		mediaList.add(new BoxSet(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre, numberOfSeasons,
 				MembershipOptions.VIDEOLOVER));
 
-		System.out.println("Movie was successfully created!\n");
+		System.out.println("\nTV Show successfully created!");
 		System.out.println("ID Number: " + mediaID);
 		System.out.println("Title: " + mediaName);
 		System.out.println("Format: " + mediaType);
 		System.out.println("Release Year: " + mediaReleaseYear);
 		System.out.println("Genre: " + mediaGenre);
 		System.out.println("Number of Seasons: " + numberOfSeasons);
-		System.out.println(mediaList);
 
-		mediaCounter = mediaCounter + 1;
-		view.exitQuestion();
+		view.addAnotherMediaDialog();
 
 	}
 
 	public void addMusic() {
 
 		br = new BufferedReader(new InputStreamReader(System.in));
-
-		int mediaID = mediaCounter;// increasing the ID
+		int mediaID = mediaList.size() + 1;
 		String mediaName = null;
 		int mediaReleaseYear = 0;
 		String mediaBandName = null;
@@ -398,23 +394,20 @@ public class Controller {
 		}
 		mediaList.add(new Music(mediaID, mediaName, mediaReleaseYear, mediaBandName, MembershipOptions.MUSICLOVER));
 
-		System.out.println("Movie was successfully created!\n");
+		System.out.println("\nMusic record successfully created!");
 		System.out.println("ID Number: " + mediaID);
 		System.out.println("Title: " + mediaName);
 		System.out.println("Release Year: " + mediaReleaseYear);
 		System.out.println("Band/Artist: " + mediaBandName);
-		System.out.println(mediaList);
 
-		mediaCounter = mediaCounter + 1;
-		view.exitQuestion();
+		view.addAnotherMediaDialog();
 
 	}
 	
 	public void addLiveConcert() {
 		
 		br = new BufferedReader(new InputStreamReader(System.in));
-
-		int mediaID = mediaCounter;// increasing the ID
+		int mediaID = mediaList.size() + 1;
 		String mediaName = null;
 		int mediaReleaseYear = 0;
 		Format mediaType = null;
@@ -458,16 +451,15 @@ public class Controller {
 		System.out.println("Band/Artist: " + mediaBandName);
 		System.out.println(mediaList);
 
-		mediaCounter = mediaCounter + 1;
-		view.exitQuestion();
+		view.addAnotherMediaDialog();
 		
 	}
 
-	public void searchMedia() {
+	public void searchMediaName() {
 
 		Media searchedMedia = null;
 		scannerMedia = new Scanner(System.in);
-		System.out.println("Search movies by Name, Genre ou Director: ");
+		System.out.println("Search Media by Name");
 		String search = scannerMedia.nextLine();
 
 		for (Media myMedia : mediaList) {
@@ -477,49 +469,76 @@ public class Controller {
 				System.out.println("Here are the results:\n");
 				System.out.println("ID: " + searchedMedia.getMediaID());
 				System.out.println("Title: " + searchedMedia.getMediaName());
+				System.out.println("Year: " + searchedMedia.getMediaReleaseYear());
+				System.out.println("Media Format: " + searchedMedia.getMediaType());
 				System.out.println("Membership type: " + searchedMedia.getMembershipOptions());
-				// view.exitQuestion();
+				//TODO include a isAvailable return here and an option to rent the title from here
+				view.searchAnotherMedia();
 			}
-
 		}
 		System.out.println("Media not found");
-		view.exitQuestion();
+		view.searchAnotherMedia();
+	}
+	
+	public void searchMediaID() {
 
-		// TODO : create new Method in View searchAnotherMedia( ) ;
+		scannerCustomer = new Scanner(System.in);
+		System.out.println("Enter ID: ");
+		int inputID = scannerCustomer.nextInt();
+		Media result = null;
+
+		for (Media resultID : mediaList) {
+			if (inputID == resultID.getMediaID()) {
+				result = resultID;
+				System.out.println("Here are the results:\n");
+				System.out.println("ID: " + result.getMediaID());
+				System.out.println("Title: " + result.getMediaName());
+				System.out.println("Year: " + result.getMediaReleaseYear());
+				System.out.println("Media Format: " + result.getMediaType());
+				System.out.println("Membership Type" + result.getMembershipOptions());
+				//TODO include a isAvailable return here and an option to rent the title from here
+				view.searchAnotherMedia();
+			}
+		}
+		System.out.println("Media not found");
+		view.searchAnotherMedia();
+
 	}
 
 	// methods to fill the arrays with data
 	public void fillMediaList() {
 		
-		mediaList.add(new Movie(199, "Bacurau", Format.BluRay, 1995, "Horror", "Hitchcock",	MembershipOptions.VIDEOLOVER));
-		mediaList.add(new Movie(198, "Parasite", Format.DVD, 2019, "Thriller", "PT Anderson",MembershipOptions.VIDEOLOVER));
-		mediaList.add(new Movie(197, "Melancholia", Format.BluRay, 2015, "Drama", "Lars Von Trier",	MembershipOptions.VIDEOLOVER));
-		mediaList.add(new Movie(196, "Psycho", Format.DVD, 1970, "Horror", "Hitchcock", MembershipOptions.VIDEOLOVER));
-		mediaList.add(new Movie(195, "Swallow", Format.BluRay, 1995, "Comedy", "Coffin Joe", MembershipOptions.VIDEOLOVER));
-		
-		mediaList.add(new Music(299, "Extraordinary Machine", 2000, "Fiona Apple", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(298, "Parklive", 2012, "Blur", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(297, "The Eraser", 2006, "Thom Yorke", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(296, "Amnesiac", 2001, "Radiohead", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(295, "Utopia", 2017, "Bjork", MembershipOptions.MUSICLOVER));
-		
-		mediaList.add(new LiveConcert(399, "MTV Unplugged", Format.BluRay, 1993, "Nirvana", MembershipOptions.MUSICLOVER));
-		mediaList.add(new LiveConcert(398, "In Rainbows", Format.DVD, 2015, "Radiohead", MembershipOptions.MUSICLOVER));
-		mediaList.add(new LiveConcert(397, "Live at Monterey", Format.BluRay, 1970, "Jimi Hendrix", MembershipOptions.MUSICLOVER));
-		mediaList.add(new LiveConcert(396, "Live in Cuba", Format.DVD, 2005, "AudioSlave", MembershipOptions.MUSICLOVER));
-		mediaList.add(new LiveConcert(395, "Unplugged", Format.BluRay, 2000, "Alice In Chains", MembershipOptions.MUSICLOVER));
-		
-		mediaList.add(new BoxSet(499, "Friends", Format.DVD, 2005, "Comedy", 5, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(498, "Dexter", Format.BluRay, 1997, "Drama", 6, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(497, "Lost", Format.BluRay, 2015, "Horror", 7, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(496, "Years and Years", Format.DVD, 1985, "Drama", 1, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(495, "Unbelievable", Format.BluRay, 2000, "Thiller", 2, MembershipOptions.TVLOVER));
+		//the list handles all kinds of Media
+		//no need to set format for Music, because its defined in the constructor -> can only be CD
+		mediaList.add(new Movie(1, "Bacurau", Format.BluRay, 1995, "Horror", "Hitchcock",	MembershipOptions.VIDEOLOVER));
+		mediaList.add(new Movie(2, "Parasite", Format.DVD, 2019, "Thriller", "PT Anderson",MembershipOptions.VIDEOLOVER));
+		mediaList.add(new Movie(3, "Melancholia", Format.BluRay, 2015, "Drama", "Lars Von Trier",	MembershipOptions.VIDEOLOVER));
+		mediaList.add(new Movie(4, "Psycho", Format.DVD, 1970, "Horror", "Hitchcock", MembershipOptions.VIDEOLOVER));
+		mediaList.add(new Movie(5, "Swallow", Format.BluRay, 1995, "Comedy", "Coffin Joe", MembershipOptions.VIDEOLOVER));
+		mediaList.add(new Music(6, "Extraordinary Machine", 2000, "Fiona Apple", MembershipOptions.MUSICLOVER));
+		mediaList.add(new Music(7, "Parklive", 2012, "Blur", MembershipOptions.MUSICLOVER));
+		mediaList.add(new Music(8, "The Eraser", 2006, "Thom Yorke", MembershipOptions.MUSICLOVER));
+		mediaList.add(new Music(9, "Amnesiac", 2001, "Radiohead", MembershipOptions.MUSICLOVER));
+		mediaList.add(new Music(10, "Utopia", 2017, "Bjork", MembershipOptions.MUSICLOVER));
+		mediaList.add(new LiveConcert(11, "MTV Unplugged", Format.BluRay, 1993, "Nirvana", MembershipOptions.MUSICLOVER));
+		mediaList.add(new LiveConcert(12, "In Rainbows", Format.DVD, 2015, "Radiohead", MembershipOptions.MUSICLOVER));
+		mediaList.add(new LiveConcert(13, "Live at Monterey", Format.BluRay, 1970, "Jimi Hendrix", MembershipOptions.MUSICLOVER));
+		mediaList.add(new LiveConcert(14, "Live in Cuba", Format.DVD, 2005, "AudioSlave", MembershipOptions.MUSICLOVER));
+		mediaList.add(new LiveConcert(15, "Unplugged", Format.BluRay, 2000, "Alice In Chains", MembershipOptions.MUSICLOVER));
+		mediaList.add(new BoxSet(16, "Friends", Format.DVD, 2005, "Comedy", 5, MembershipOptions.TVLOVER));
+		mediaList.add(new BoxSet(17, "Dexter", Format.BluRay, 1997, "Drama", 6, MembershipOptions.TVLOVER));
+		mediaList.add(new BoxSet(18, "Lost", Format.BluRay, 2015, "Horror", 7, MembershipOptions.TVLOVER));
+		mediaList.add(new BoxSet(19, "Years and Years", Format.DVD, 1985, "Drama", 1, MembershipOptions.TVLOVER));
+		mediaList.add(new BoxSet(20, "Unbelievable", Format.BluRay, 2000, "Thiller", 2, MembershipOptions.TVLOVER));
 
 	}
 
-	public void viewMediaList() { // just testing purposes (Option 6)
-		System.out.println(mediaList);
+	public void viewMediaList() { //listing all the list elements using iterator, just for test purposes
+		Iterator<Media> litr = mediaList.iterator();
+		System.out.println("Complete media list:");
+		while(litr.hasNext()) {
+			System.out.println(litr.next());
+		}
 		view.exitQuestion();
-
 	}
 }

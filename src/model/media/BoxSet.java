@@ -9,6 +9,7 @@ public class BoxSet extends Media {
 	private String mediaGenre;
 	private int numberOfSeasons;
 
+	//default constructor
 	public BoxSet(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, 
 			String mediaGenre, int numberOfSeasons, MembershipOptions membershipOptions) {
 		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor

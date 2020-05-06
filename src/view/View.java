@@ -9,23 +9,23 @@ import controller.MediaController;
 public class View {
 
 	private Controller controller;
-	//private MediaController mediacontroller; // instantiating MediaController class @EdwardsJr
-	
+	// private MediaController mediacontroller; // instantiating MediaController
+	// class @EdwardsJr
+
 	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
 	private Scanner myScanner;// @WillianVoelz
 
 	private Scanner menuOption; // scanner to be used inside the switch menu @EdwardsJr
-	
 
 	public View(Controller controller) {
 		this.controller = controller;
-		//this.mediacontroller = mediacontroller;
-		
+		// this.mediacontroller = mediacontroller;
 
 	}
+
 //	}
 	// ---------- Method responsible for ONLY printing the Menu Options--------
-	//	@WillianVoelz
+	// @WillianVoelz
 	public void printMenu() {
 		System.out.println("* Ultra Vision *");
 		System.out.println("\nPlease select one of the following options");
@@ -34,15 +34,15 @@ public class View {
 		System.out.println("3 - Update Customer");
 		System.out.println("4 - Add Title");
 		System.out.println("5 - Search Title");
-		System.out.println("6 - Rent Title(VIEW ARRAY OF TITLES");
+		System.out.println("6 - Rent Title");
 		System.out.println("7 - Return Title");
 		System.out.println("8 - Membership Options");
 		System.out.println("9 - Exit");
 	}
 
 	// ------------ Method responsible for ONLY printing the Membership Options
-	//	@WillianVoelz
-	
+	// @WillianVoelz
+
 	public void printMembershipOptions() {
 		System.out.println("1 - MUSIC lover");
 		System.out.println("2 - VIDEO Lover");
@@ -52,8 +52,6 @@ public class View {
 
 	// - Method responsible for taking user Input and redirect to specific method
 	public void Menu() {
-		
-		//mediacontroller= new MediaController();
 
 		do { // do while loop to keep the menu showing up until the Exit option is being
 				// called. - Bug prevention loop. (Program never stops)
@@ -71,7 +69,6 @@ public class View {
 					System.out.println("Option 1: Add New Customer: ");
 					controller.addCustomer();
 					break;
-					
 				case 2:
 					controller.viewCustomer();
 					System.out.println("Option 2: Search for Customer: ");
@@ -86,14 +83,13 @@ public class View {
 					if (choice == 3 || choice == 03) {
 						printMenu();
 					} else {
-					printMenu();
+						printMenu();
 					}
-
 					break;
-					
 				case 3:
 					System.out.println("Option 3: Update Customer ");
-					System.out.println("Please select: \n1-Update customer Name: \n2-Update customer Email: \n3- Update customer Subscription: ");
+					System.out.println(
+							"Please select: \n1-Update customer Name: \n2-Update customer Email: \n3- Update customer Subscription: ");
 					choice = myScanner.nextInt();
 					if (choice == 1 || choice == 01) {
 						controller.updateCustomerName();
@@ -104,13 +100,10 @@ public class View {
 					if (choice == 3 || choice == 03) {
 						controller.updateSubscription();
 					} else {
-					printMenu();
+						printMenu();
 					}
-					
 					break;
-					
 				case 4:// add media @EdwardsJr
-					
 					System.out.println(
 							"Please select the type of media to be added:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
 					int option = menuOption.nextInt();
@@ -131,40 +124,24 @@ public class View {
 					}
 					break;
 				case 5:// search media @EdwardsJr
-					//mc = new MediaController();
-					System.out.println(
-							"Please select the type of media to search for:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
+					System.out.println("Please choose the kind of search: \n1 - by Title \n2 - by ID \n3 - List all available Media");
 					int option1 = menuOption.nextInt();
 					if (option1 == 1) {
-						System.out.println("Searching for movies: ");
-						controller.searchMedia();
-						exitQuestion();
+						controller.searchMediaName();
 					} else if (option1 == 2) {
-						System.out.println("Searching for music: ");
-						//mediacontroller.searchMusic();
-						exitQuestion();
-					} else if (option1 == 3) {
-						System.out.println("Searching for live concerts: ");
-						//mediacontroller.searchLiveConcert();
-						exitQuestion();
-					} else if (option1 == 4) {
-						System.out.println("Search for TV Shows: ");
-						//mediacontroller.searchBoxSet();
-						exitQuestion();
-					} else if (option1 == 5) {
-						printMenu();
+						controller.searchMediaID();
+					} else {
+						controller.viewMediaList();
 					}
 					break;
 				case 6:
-					//mc = new MediaController();
-					System.out.println("Option ");
-					controller.viewMediaList();
+					System.out.println("Rent Title");
 					break;
 				case 7:
-					System.out.println("Option 6");
+					System.out.println("Return Title");
 					break;
 				case 8:
-					System.out.println("Option 7");
+					System.out.println("Membership Options");
 					break;
 				case 9:
 					System.out.println("Ultra Vision terminated");
@@ -183,27 +160,27 @@ public class View {
 		} while (!exitMainMenu); // !exitMainMenu = true .. if true = kills program before loop
 
 	}
-	
-	// Simple if statement method that takes input from user to go ahead with operations.
-	// this method is designed to pause the Menu do/while loop and let customer decide to go ahead.
-	//	@WillianVoelz
-	public void exitQuestion() { 
-								
-		System.out.println("\nPress: \n1 to menu ");
+
+	// Simple if statement method that takes input from user to go ahead with
+	// operations.
+	// this method is designed to pause the Menu do/while loop and let customer
+	// decide to go ahead.
+	// @WillianVoelz
+	public void exitQuestion() {
+
+		System.out.println("\nPress:\n1 - Return to Main Menu ");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
-
 		if (choice == 1 || choice == 01) {
 			Menu();
 		} else {
-
 			exitQuestion();
 		}
-
 	}
+
 	// Add another customer while still in the addCustomer Method
-	//	@WillianVoelz
-	public void addAnotherCustomerQuestion() { 
+	// @WillianVoelz
+	public void addAnotherCustomerQuestion() {
 		System.out.println("\nPress: \n1 to Menu \n2 to Add Another Customer");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
@@ -219,11 +196,13 @@ public class View {
 		}
 
 	}
-	// Search another customer or go back to Menu
-	//	@WillianVoelz
-	public void searchAnotherCustomer() { 
 
-		System.out.println("\nPress: \n1 to Menu  \n2 to search Another Customer by Name \n3 Search another customer by ID ");
+	// Search another customer or go back to Menu
+	// @WillianVoelz
+	public void searchAnotherCustomer() {
+
+		System.out.println(
+				"\nPress: \n1 to Menu  \n2 to search Another Customer by Name \n3 Search another customer by ID ");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
 
@@ -236,8 +215,56 @@ public class View {
 		} else if (choice == 3 || choice == 03) {
 
 			controller.searchCustomerByID();
-		}else {
+		} else {
 			searchAnotherCustomer();
+		}
+
+	}
+
+	// add another media or go back to menu
+	// @EdwardsJr
+	public void addAnotherMediaDialog() {
+		System.out.println("\nChoose: \n1 Menu \n2 Add Movie \n3 Add Music \n4 Add Live Concert \n5 Add Box Set");
+		myScanner = new Scanner(System.in);
+		int choice = myScanner.nextInt();
+
+		if (choice == 1 || choice == 01) {
+			Menu();
+		}
+		if (choice == 2 || choice == 02) {
+			controller.addMovie();
+		}
+		if (choice == 3 || choice == 03) {
+			controller.addMusic();
+		}
+		if (choice == 4 || choice == 04) {
+			controller.addLiveConcert();
+		}
+		if (choice == 5 || choice == 05) {
+			controller.addBoxSet();
+		} else {
+			exitQuestion();
+		}
+
+	}
+
+	// search another media or go back to menu
+	// @EdwardsJr
+	public void searchAnotherMedia() {
+
+		System.out.println("\nChoose: \n1 Menu \n2 Search Media by Name \n3 Search Media by ID");
+		myScanner = new Scanner(System.in);
+		int choice = myScanner.nextInt();
+
+		if (choice == 1 || choice == 01) {
+			Menu();
+		}
+		if (choice == 2 || choice == 02) {
+			controller.searchMediaName();
+		} else if (choice == 3 || choice == 03) {
+			controller.searchMediaID();
+		} else {
+			searchAnotherMedia();
 		}
 
 	}
