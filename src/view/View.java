@@ -2,15 +2,11 @@ package view;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import controller.Controller;
-import controller.MediaController;
 
 public class View {
 
 	private Controller controller;
-	// private MediaController mediacontroller; // instantiating MediaController
-	// class @EdwardsJr
 
 	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
 	private Scanner myScanner;// @WillianVoelz
@@ -19,8 +15,6 @@ public class View {
 
 	public View(Controller controller) {
 		this.controller = controller;
-		// this.mediacontroller = mediacontroller;
-
 	}
 
 //	}
@@ -108,17 +102,13 @@ public class View {
 							"Please select the type of media to be added:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
 					int option = menuOption.nextInt();
 					if (option == 1) {
-						System.out.println("Adding a Movie record: ");
 						controller.addMovie();
 					} else if (option == 2) {
-						System.out.println("Adding a Music record: ");
 						controller.addMusic();
 					} else if (option == 3) {
-						System.out.println("Adding a Live Concert record: ");
 						controller.addLiveConcert();
 					} else if (option == 4) {
-						System.out.println("Adding a Box Set record: ");
-						exitQuestion();
+						controller.addBoxSet();
 					} else if (option == 5) {
 						printMenu();
 					}

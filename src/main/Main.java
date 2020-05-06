@@ -1,7 +1,6 @@
 package main;
 
 import controller.Controller;
-import controller.MediaController;
 
 public class Main {
 

@@ -52,7 +52,7 @@ public class LiveConcert extends Media {
 	//toString method
 	@Override
 	public String toString() {
-		return "Music [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
+		return "LiveConcert [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
 				+ ", mediaBandName=" + mediaBandName + "]";
 	}
