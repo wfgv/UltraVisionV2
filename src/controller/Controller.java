@@ -619,7 +619,7 @@ public class Controller {
 	public void fillRentList() {
 
 		Iterator<Rent> litr = rentedTitlesList.iterator();
-		System.out.println("Complete media list:");
+		System.out.println("Complete rent list:");
 		while (litr.hasNext()) {
 			System.out.println(litr.next());
 		}
