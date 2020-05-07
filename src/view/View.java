@@ -114,7 +114,7 @@ public class View {
 					}
 					break;
 				case 5:// search media @EdwardsJr
-					System.out.println("Please choose the kind of search: \n1 - by Title \n2 - by ID \n3 - List all available Media");
+					System.out.println("Please choose the kind of search: \n1 - Title \n2 - ID \n3 - List all available Media");
 					int option1 = menuOption.nextInt();
 					if (option1 == 1) {
 						controller.searchMediaName();
