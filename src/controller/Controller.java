@@ -22,7 +22,7 @@ import model.media.LiveConcert;
 import model.media.Media;
 import model.media.Movie;
 import model.media.Music;
-import rent.Rent;
+//import rent.Rent;
 import view.View;
 
 public class Controller {
@@ -35,7 +35,7 @@ public class Controller {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader @Edwards
 	private Scanner scannerMedia; //@Edwards
 	private List<Media> mediaList = new ArrayList<Media>(); //@Edwards
-	private List<Rent> rentList = new ArrayList<Rent>();
+	//private List<Rent> rentList = new ArrayList<Rent>();
 
 	public Controller() {
 		view = new View(this);
@@ -59,29 +59,35 @@ public class Controller {
 			scannerCustomer.nextLine();
 		}
 		String name = scannerCustomer.nextLine();
-		System.out.println("Enter customer email: ");
-		String email = scannerCustomer.nextLine();
-		while (!isEmailValid(email)) {
-			System.out.println("Email Invalid \nEnter valid email:");
-			scannerCustomer.nextLine();
+		String email = "invalid"; // not the best solution, but that's what I could think about
+		while(!isEmailValid(email)) { // so it calls the loop automatically
+			System.out.println("Enter valid customer email:");
+			email = scannerCustomer.nextLine();
 		}
-		scannerCustomer.nextLine();
 		System.out.println("Select subcription: ");
 		view.printMembershipOptions(); // prompt membership options
+		while (!scannerCustomer.hasNextInt()) { // while name is not correct, keep looping asking for letters
+			// only
+			System.out.println("Only 1-4 allowed ");
+			view.printMembershipOptions();
+			scannerCustomer.next();
+		}
 		int membershipOption = scannerCustomer.nextInt();
+		
 		if (membershipOption == 1) { // if statements, create different Customers according to subscription chosen
-
 			customerList.add(new MusicLover(id, name, email, MembershipOptions.MUSICLOVER));
-			// musicLoverList.add(ml);
-		} else if (membershipOption == 2) {
+			
+		}else if (membershipOption == 2) {
 			customerList.add(new VideoLover(id, name, email, MembershipOptions.VIDEOLOVER));
 
-		} else if (membershipOption == 3) {
+		}else if (membershipOption == 3) {
 			customerList.add(new TVLover(id, name, email, MembershipOptions.TVLOVER));
 
-		} else if (membershipOption == 4) {
+		}else if (membershipOption == 4) {
 			customerList.add(new Premium(id, name, email, MembershipOptions.PREMIUM));
-
+		}else {
+			System.out.println("Subscription type not found: ");
+			addCustomer();
 		}
 
 		System.out.println(name + " was succesfully added as a customer!");
@@ -221,17 +227,24 @@ public class Controller {
 	}
 
 	public void updateCustomerEmail() {
+		 
 		scannerCustomer = new Scanner(System.in);
 		System.out.println("Input Member ID to change Email: ");
-		int customerID = scannerCustomer.nextInt();
+		int customerID =scannerCustomer.nextInt();
+		
 
 		if (!isCustomerRegistered(customerID)) {
 			System.out.println("Customer not found.\n");
 			view.exitQuestion();
 		} else if (isCustomerRegistered(customerID)) {
 			scannerCustomer = new Scanner(System.in);
-			System.out.println("New name: ");
+			System.out.println("New Email: ");
 			String newEmail = scannerCustomer.nextLine();
+			while(!isEmailValid(newEmail)) { // so it calls the loop automatically
+				System.out.println("Enter valid customer email:");
+				newEmail = scannerCustomer.nextLine();
+			}
+			
 
 			customerList.get(customerID - 1).setEmail(newEmail);
 
@@ -287,11 +300,13 @@ public class Controller {
 					mediaType = Format.DVD;//defined by an enum
 				} else if (choice == 2) {
 					mediaType = Format.BluRay;//defined by an enum
-				}
+//TODO add a stopper if user types any other number that is not 1 or 2 ( exception not catching) might need to do while loop					
+			}
 			} catch (Exception e) {
 				System.out.println("Please, use one of the options");
 			}
 			System.out.println("Enter the release year: ");
+//TODO validate year to be only integers and not crash the program
 			mediaReleaseYear = Integer.parseInt(br.readLine());
 			System.out.println("Enter the genre: ");
 			mediaGenre = br.readLine().toUpperCase();
