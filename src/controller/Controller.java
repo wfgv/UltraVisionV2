@@ -314,7 +314,7 @@ public class Controller {
 					mediaReleaseYear = Integer.parseInt(br.readLine());
 					break;
 				} catch (NumberFormatException e) {
-					System.out.println("Only number are allowed!");
+					System.out.println("Only numbers are allowed!");
 				}
 			}
 			System.out.println("Enter the genre: ");
@@ -337,7 +337,7 @@ public class Controller {
 		System.out.println("Genre: " + mediaGenre);
 		System.out.println("Director: " + mediaDirector);
 
-		view.addAnotherMediaDialog();// asking the user for further actions
+		view.addAnotherMediaDialog();//asking the user for further actions
 
 	}
 
@@ -356,7 +356,7 @@ public class Controller {
 			scannerMedia = new Scanner(System.in);
 			System.out.println("Enter TV Show title: ");
 			mediaName = br.readLine().toUpperCase();
-
+			
 			do {
 				System.out.println("Enter media format: \n1 - DVD \n2 - BluRay");
 				choice = scannerMedia.nextInt();
@@ -370,21 +370,29 @@ public class Controller {
 					System.out.println("Please choose one of the available formats");
 				}
 			} while ((choice < 1) || (choice > 2));
-
+			
 			while (true) {// validate user input for year
 				try {
 					System.out.println("Enter the release year: ");
 					mediaReleaseYear = Integer.parseInt(br.readLine());
 					break;
 				} catch (NumberFormatException e) {
-					System.out.println("Only number are allowed!");
+					System.out.println("Only numbers are allowed!");
 				}
 			}
-
+			
 			System.out.println("Enter the genre: ");
 			mediaGenre = br.readLine().toUpperCase();
-			System.out.println("Enter the number of seasons: ");
-			numberOfSeasons = Integer.parseInt(br.readLine());
+			
+			while (true) {// validate user input for number of seasons
+				try {
+					System.out.println("Enter the number of seasons: ");
+					mediaReleaseYear = Integer.parseInt(br.readLine());
+					break;
+				} catch (NumberFormatException e) {
+					System.out.println("Only numbers are allowed!");
+				}
+			}
 			System.out.println("");
 		} catch (IOException e) {
 			System.out.println("Something went wrong, please restart the application!");
@@ -416,17 +424,17 @@ public class Controller {
 			scannerMedia = new Scanner(System.in);
 			System.out.println("Enter a record name: ");
 			mediaName = br.readLine().toUpperCase();
-
+			
 			while (true) {// validate user input for year
 				try {
 					System.out.println("Enter the release year: ");
 					mediaReleaseYear = Integer.parseInt(br.readLine());
 					break;
 				} catch (NumberFormatException e) {
-					System.out.println("Only number are allowed!");
+					System.out.println("Only numbers are allowed!");
 				}
 			}
-
+			
 			System.out.println("Enter an Artist/Band name: ");
 			mediaBandName = br.readLine().toUpperCase();
 			System.out.println("");
@@ -438,6 +446,7 @@ public class Controller {
 		System.out.println("\nMusic record successfully created!");
 		System.out.println("ID Number: " + mediaID);
 		System.out.println("Title: " + mediaName);
+		System.out.println("Format: " + Format.CD);
 		System.out.println("Release Year: " + mediaReleaseYear);
 		System.out.println("Band/Artist: " + mediaBandName);
 
@@ -480,10 +489,10 @@ public class Controller {
 					mediaReleaseYear = Integer.parseInt(br.readLine());
 					break;
 				} catch (NumberFormatException e) {
-					System.out.println("Only number are allowed!");
+					System.out.println("Only numbers are allowed!");
 				}
 			}
-
+			
 			System.out.println("Enter an Artist/Band name: ");
 			mediaBandName = br.readLine().toUpperCase();
 			System.out.println("");
