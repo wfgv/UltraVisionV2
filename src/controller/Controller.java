@@ -3,7 +3,9 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -335,7 +337,7 @@ public class Controller {
 		System.out.println("Genre: " + mediaGenre);
 		System.out.println("Director: " + mediaDirector);
 
-		view.addAnotherMediaDialog();//asking the user for further actions
+		view.addAnotherMediaDialog();// asking the user for further actions
 
 	}
 
@@ -354,7 +356,7 @@ public class Controller {
 			scannerMedia = new Scanner(System.in);
 			System.out.println("Enter TV Show title: ");
 			mediaName = br.readLine().toUpperCase();
-			
+
 			do {
 				System.out.println("Enter media format: \n1 - DVD \n2 - BluRay");
 				choice = scannerMedia.nextInt();
@@ -368,7 +370,7 @@ public class Controller {
 					System.out.println("Please choose one of the available formats");
 				}
 			} while ((choice < 1) || (choice > 2));
-			
+
 			while (true) {// validate user input for year
 				try {
 					System.out.println("Enter the release year: ");
@@ -378,10 +380,10 @@ public class Controller {
 					System.out.println("Only numbers are allowed!");
 				}
 			}
-			
+
 			System.out.println("Enter the genre: ");
 			mediaGenre = br.readLine().toUpperCase();
-			
+
 			while (true) {// validate user input for number of seasons
 				try {
 					System.out.println("Enter the number of seasons: ");
@@ -422,7 +424,7 @@ public class Controller {
 			scannerMedia = new Scanner(System.in);
 			System.out.println("Enter a record name: ");
 			mediaName = br.readLine().toUpperCase();
-			
+
 			while (true) {// validate user input for year
 				try {
 					System.out.println("Enter the release year: ");
@@ -432,7 +434,7 @@ public class Controller {
 					System.out.println("Only numbers are allowed!");
 				}
 			}
-			
+
 			System.out.println("Enter an Artist/Band name: ");
 			mediaBandName = br.readLine().toUpperCase();
 			System.out.println("");
@@ -490,7 +492,7 @@ public class Controller {
 					System.out.println("Only numbers are allowed!");
 				}
 			}
-			
+
 			System.out.println("Enter an Artist/Band name: ");
 			mediaBandName = br.readLine().toUpperCase();
 			System.out.println("");
@@ -608,36 +610,88 @@ public class Controller {
 		view.exitQuestion();
 	}
 
-	
 	/*
 	 * -------- From this point, all methods are related to Rent manipulation.
 	 * 
 	 * @EdwardsJr ---------
 	 */
 
-	
 	public void fillRentList() {
 
-		//rentedTitlesList.add(new Rent(1, customer, mediaList.get(mediaID), "", "", "", ""));
-		
+		Iterator<Rent> litr = rentedTitlesList.iterator();
+		System.out.println("Complete media list:");
+		while (litr.hasNext()) {
+			System.out.println(litr.next());
+		}
+
 	}
-	
+
 	public void addRent() {
+
+		// Iterator<Media> mediaIterator = mediaList.iterator();
+		// Iterator<Customer> customerIterator = customerList.iterator();
+
+		LocalDate rentDate = LocalDate.now();// setting the date for now
+		LocalDate returnDate = rentDate.plusDays(3);// adding 3 days to set the return
+
+		scannerCustomer = new Scanner(System.in);
+		System.out.println("Enter customer ID: ");
+		int customerID = scannerCustomer.nextInt();
+
+		for (Customer resultID : customerList) {
+			if (customerID == resultID.getID()) {
+				System.out.println("Customer ID: " + resultID.getID());
+				System.out.println("Customer Name: " + resultID.getName());
+			}
+		}
+
+		scannerMedia = new Scanner(System.in);
+		System.out.println("Enter media ID: ");
+		int mediaID = scannerCustomer.nextInt();
+
+		for (Media resultID : mediaList) {
+			if (mediaID == resultID.getMediaID()) {
+				System.out.println("Media ID: " + resultID.getMediaID());
+				System.out.println("Media Name " + resultID.getMediaName());
+			}
+		}
 		
+		System.out.println("Date of rent: " + rentDate);
+		System.out.println("Date of return: " + returnDate);
+		
+
+		rentedTitlesList.add(new Rent(1, customerID, mediaID, rentDate, returnDate, "customer status", isAvailable(false)));
+		
+		fillRentList();
+		
+//		System.out.println(rentedTitlesList);
+		
+//		Iterator<Rent> litr = rentedTitlesList.iterator();
+//		System.out.println("Complete media list:");
+//		while (litr.hasNext()) {
+//			System.out.println(litr.next());
+//		}
+		view.exitQuestion();
+		fillRentList();
 		
 	}
 	
+
 	public void returnRent() {
-		
-		
+
 	}
-	
-	public boolean isAvailable() {
-		return true;
+
+	public void loyaltyPoints(int points) {
+
 	}
-	
+
+	public boolean isAvailable(boolean b) {
+		return false;
+	}
+
 	public void checkCustomerStatus() {
-		//TODO: check if customer has a media rented and check the return date
+//		return true;
+		// TODO: check if customer has a media rented and check the return date
 	}
 
 }

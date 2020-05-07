@@ -126,6 +126,7 @@ public class View {
 					break;
 				case 6:
 					System.out.println("Rent Title");
+					controller.addRent();
 					break;
 				case 7:
 					System.out.println("Return Title");
