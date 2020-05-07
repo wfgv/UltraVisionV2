@@ -3,13 +3,10 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.sound.midi.Soundbank;
 
 import model.customer.Customer;
 import model.customer.MembershipOptions;
@@ -23,6 +20,7 @@ import model.media.LiveConcert;
 import model.media.Media;
 import model.media.Movie;
 import model.media.Music;
+import rent.Rent;
 //import rent.Rent;
 import view.View;
 
@@ -37,7 +35,7 @@ public class Controller {
 																							// @Edwards
 	private Scanner scannerMedia; // @Edwards
 	private List<Media> mediaList = new ArrayList<Media>(); // @Edwards
-	// private List<Rent> rentList = new ArrayList<Rent>();
+	private List<Rent> rentedTitlesList = new ArrayList<Rent>();
 
 	public Controller() {
 		view = new View(this);
@@ -610,8 +608,36 @@ public class Controller {
 		view.exitQuestion();
 	}
 
+	
+	/*
+	 * -------- From this point, all methods are related to Rent manipulation.
+	 * 
+	 * @EdwardsJr ---------
+	 */
+
+	
 	public void fillRentList() {
 
+		//rentedTitlesList.add(new Rent(1, customer, mediaList.get(mediaID), "", "", "", ""));
+		
+	}
+	
+	public void addRent() {
+		
+		
+	}
+	
+	public void returnRent() {
+		
+		
+	}
+	
+	public boolean isAvailable() {
+		return true;
+	}
+	
+	public void checkCustomerStatus() {
+		//TODO: check if customer has a media rented and check the return date
 	}
 
 }
