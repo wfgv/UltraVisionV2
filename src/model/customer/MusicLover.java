@@ -4,8 +4,8 @@ import model.media.Media;
 
 public class MusicLover extends Customer {
 
-	public MusicLover(int customerID, String customerName, String customerEmail, MembershipOptions membershipOptions) {
-		super(customerID, customerName, customerEmail);
+	public MusicLover(int customerID, String customerName, String customerEmail, MembershipOptions membershipOptions, int loyaltyPoints) {
+		super(customerID, customerName, customerEmail,loyaltyPoints);
 		
 		this.membershipOptions = membershipOptions;
 		// TODO Auto-generated constructor stub
@@ -13,7 +13,7 @@ public class MusicLover extends Customer {
 	
 	@Override
 	public String toString() {
-		return "\nCustomer ID: " + this.customerID + " Name: "+this.customerName + " Email: "+this.customerEmail + " Subscription: " + this.membershipOptions;
+		return "\nCustomer ID: " + this.customerID + " Name: "+this.customerName + " Email: "+this.customerEmail + " Subscription: " + this.membershipOptions+ "Loyalty Points: " + this.loyaltyPoints;
 	}
 
 }

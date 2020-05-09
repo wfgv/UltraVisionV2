@@ -30,7 +30,7 @@ public class View {
 		System.out.println("5 - Search Title");
 		System.out.println("6 - Rent Title");
 		System.out.println("7 - Return Title");
-		System.out.println("8 - Membership Options");
+		System.out.println("8 - Check Loyalty Points");
 		System.out.println("9 - Exit");
 	}
 
@@ -133,6 +133,7 @@ public class View {
 					break;
 				case 8:
 					System.out.println("Membership Options");
+					controller.checkLoyaltyPoints();
 					break;
 				case 9:
 					System.out.println("Ultra Vision terminated");

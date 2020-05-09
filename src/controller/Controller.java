@@ -81,16 +81,16 @@ public class Controller {
 		int membershipOption = scannerCustomer.nextInt();
 
 		if (membershipOption == 1) { // if statements, create different Customers according to subscription chosen
-			customerList.add(new MusicLover(id, name, email, MembershipOptions.MUSICLOVER));
+			customerList.add(new MusicLover(id, name, email, MembershipOptions.MUSICLOVER, 0));
 
 		} else if (membershipOption == 2) {
-			customerList.add(new VideoLover(id, name, email, MembershipOptions.VIDEOLOVER));
+			customerList.add(new VideoLover(id, name, email, MembershipOptions.VIDEOLOVER,0));
 
 		} else if (membershipOption == 3) {
-			customerList.add(new TVLover(id, name, email, MembershipOptions.TVLOVER));
+			customerList.add(new TVLover(id, name, email, MembershipOptions.TVLOVER,0));
 
 		} else if (membershipOption == 4) {
-			customerList.add(new Premium(id, name, email, MembershipOptions.PREMIUM));
+			customerList.add(new Premium(id, name, email, MembershipOptions.PREMIUM,0));
 		} else {
 			System.out.println("Subscription type not found: ");
 			addCustomer();
@@ -261,10 +261,10 @@ public class Controller {
 	// methods to fill the arrays with data
 	public void fillCustomerList() {
 
-		Customer musicLover1 = new MusicLover(1, "RENAN", "RENAN@CCT.IE", MembershipOptions.MUSICLOVER);
-		Customer videoLover1 = new VideoLover(2, "JORGE", "JORGE@CCT.IE", MembershipOptions.VIDEOLOVER);
-		Customer TVLover1 = new TVLover(3, "MARTA", "MARTA@CCT.IE", MembershipOptions.TVLOVER);
-		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM);
+		Customer musicLover1 = new MusicLover(1, "RENAN", "RENAN@CCT.IE", MembershipOptions.MUSICLOVER,0);
+		Customer videoLover1 = new VideoLover(2, "JORGE", "JORGE@CCT.IE", MembershipOptions.VIDEOLOVER,0);
+		Customer TVLover1 = new TVLover(3, "MARTA", "MARTA@CCT.IE", MembershipOptions.TVLOVER,0);
+		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM,90);
 
 		customerList.add(musicLover1);
 		customerList.add(videoLover1);
@@ -652,8 +652,8 @@ public class Controller {
 				System.out.println("Customer Name: " + resultID.getName());
 				System.out.println("Membership type: " + resultID.getMembership());
 
-				customer = new Customer(resultID.getID(), resultID.getName(), resultID.getEmail());
-
+				customer = new Customer(resultID.getID(), resultID.getName(), resultID.getEmail(), resultID.getLoyaltyPoints());
+				
 			}
 		}
 
@@ -681,10 +681,14 @@ public class Controller {
 			System.out.println("Sorry Media is not available at the moment!");
 			view.exitQuestion();
 		}
-
+		// method that check the customer subscription with the type of media that is being rented
 		if (!isMatchSubscription(mediaID, customerID)) {
 			System.out.println("Subscription doesn't match with media Membership Option");
 			view.exitQuestion();
+		} 
+		// Method to check if customer has 100 loyalty points 
+		if(freeRent(customerID)) {
+			System.out.println("Free rent! There is no need to pay for this one");
 		}
 
 
@@ -701,6 +705,9 @@ public class Controller {
 
 			else {
 				rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() +1 , customerID, mediaID, rentDate, returnDate,	setMediaRented(media.getMediaID())));
+				
+				// method located inside Customer class, it increases the loyaltyPoints int;
+				customerList.get(customerID-1).add10PointsPerRent();
 				customer.setMediaRented(media);
 				System.out.println(customer.getNumberOfTitlesRented());
 				 System.out.println("\nMedia Rent confirmation: \nCustomer: " + customerID +
@@ -729,7 +736,7 @@ public class Controller {
 		return available;
 	}
 
-
+	// matches two parameters and return true(go ahead) or false(print exitMenu())
 	public boolean isMatchSubscription(int mediaID, int customerID) {
 		MembershipOptions customerSubscription = customerList.get(customerID - 1).getMembership();
 		MembershipOptions mediaCategory = mediaList.get(mediaID - 1).getMembershipOptions();
@@ -741,17 +748,29 @@ public class Controller {
 		}
 		return false;
 	}
+	// if loyaltyPoints is equal or bigger than 100 - display free rent and set counter to zero;
+	public boolean freeRent(int customerID) {
+		int loyaltyPoints = customerList.get(customerID-1).getLoyaltyPoints();
+		if(loyaltyPoints >= 100) {
+			customerList.get(customerID-1).setLoyaltyPoints(-10);// I had to set it to -10 cause the add10Points method runs anyway after the freeRent is deducted
+			return true;
+		}
+		return false;
+	}
 
 	public void returnRent() {
 
 	}
 
-
-
-	public void loyaltyPoints(int points) {
-
+ // option 8 in the Menu ( it returns loyaltyPoints of the requested customerID;
+	public void checkLoyaltyPoints() {
+		scannerCustomer = new Scanner(System.in);
+		System.out.println("Input customer ID:");
+		int customerID = scannerCustomer.nextInt();
+		int loyaltyPoints = customerList.get(customerID-1).getLoyaltyPoints();
+		System.out.println("CustomerID : "+ customerID + " Has " +loyaltyPoints +" Loyalty points!");
+		view.exitQuestion();
 	}
-
-
+	
 
 }
