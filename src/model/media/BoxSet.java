@@ -11,8 +11,8 @@ public class BoxSet extends Media {
 
 	//default constructor
 	public BoxSet(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, 
-			String mediaGenre, int numberOfSeasons, MembershipOptions membershipOptions) {
-		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
+			String mediaGenre, int numberOfSeasons, MembershipOptions membershipOptions, boolean isAvaiable) {
+		super(mediaID, mediaName, mediaType, mediaReleaseYear, isAvaiable);//from the parent constructor
 		this.mediaGenre = mediaGenre;
 		this.numberOfSeasons = numberOfSeasons;
 		this.membershipOptions = membershipOptions;
@@ -59,13 +59,24 @@ public class BoxSet extends Media {
 		this.numberOfSeasons = numberOfSeasons;
 	}
 
-	//toString method
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
 	@Override
 	public String toString() {
 		return "BoxSet [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", mediaGenre=" + mediaGenre + ", numberOfSeasons=" + numberOfSeasons + "]";
+				+ ", isAvailable=" + isAvailable + ", mediaGenre=" + mediaGenre + ", numberOfSeasons=" + numberOfSeasons
+				+ "]";
 	}
+	
+	//toString method
+
 
 	
 	

@@ -11,10 +11,12 @@ public class LiveConcert extends Media {
 
 	private String mediaBandName;
 
-	public LiveConcert(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaBandName, MembershipOptions membershipOptions) {
-		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
+	public LiveConcert(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaBandName, MembershipOptions membershipOptions, boolean isAvailable) {
+		super(mediaID, mediaName, mediaType, mediaReleaseYear, true);//from the parent constructor
 		this.mediaBandName = mediaBandName;
 		this.membershipOptions = membershipOptions;
+
+		
 	}
 
 	public int getMediaID() {
@@ -48,14 +50,24 @@ public class LiveConcert extends Media {
 	public void setMediaBandName(String mediaBandName) {
 		this.mediaBandName = mediaBandName;
 	}
+	
+	public boolean isAvailable() {
+		return isAvailable;
+	}
 
-	//toString method
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
 	@Override
 	public String toString() {
 		return "LiveConcert [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", mediaBandName=" + mediaBandName + "]";
+				+ ", isAvailable=" + isAvailable + ", mediaBandName=" + mediaBandName + "]";
 	}
+
+	//toString method
+
 	
 	
 

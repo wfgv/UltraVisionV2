@@ -11,8 +11,8 @@ public class Movie extends Media {
 
 	//default constructor
 	public Movie(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, String mediaGenre,
-			String mediaDirector, MembershipOptions membershipOptions) {
-		super(mediaID, mediaName, mediaType, mediaReleaseYear);//from the parent constructor
+			String mediaDirector, MembershipOptions membershipOptions, boolean isAvailable) {
+		super(mediaID, mediaName, mediaType, mediaReleaseYear, isAvailable);//from the parent constructor
 		this.mediaGenre = mediaGenre;
 		this.mediaDirector = mediaDirector;
 		this.membershipOptions = membershipOptions;
@@ -59,12 +59,24 @@ public class Movie extends Media {
 		this.mediaDirector = mediaDirector;
 	}
 	
-	//toString method
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
 	@Override
 	public String toString() {
 		return "Movie [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", mediaGenre=" + mediaGenre + ", mediaDirector=" + mediaDirector + "]";
+				+ ", isAvailable=" + isAvailable + ", mediaGenre=" + mediaGenre + ", mediaDirector=" + mediaDirector
+				+ "]";
 	}
+	
+	
+	//toString method
+
 
 }

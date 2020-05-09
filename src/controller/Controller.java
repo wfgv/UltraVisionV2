@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -23,14 +24,14 @@ import model.media.Media;
 import model.media.Movie;
 import model.media.Music;
 import rent.Rent;
-//import rent.Rent;
 import view.View;
 
 public class Controller {
 
 	private View view; // initialising the link between view and controller @WillianVoelz
 	private List<Customer> customerList = new ArrayList<Customer>(); // arraylist of customers @WillianVoelz
-	//private int customerCount = 1; // counter for customer ID , it increases by 1 every customer added.
+	// private int customerCount = 1; // counter for customer ID , it increases by 1
+	// every customer added.
 	private Scanner scannerCustomer; // @WillianVoelz
 	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader
@@ -38,6 +39,8 @@ public class Controller {
 	private Scanner scannerMedia; // @Edwards
 	private List<Media> mediaList = new ArrayList<Media>(); // @Edwards
 	private List<Rent> rentedTitlesList = new ArrayList<Rent>();
+	private Customer customer;
+	private Media media;
 
 	public Controller() {
 		view = new View(this);
@@ -60,7 +63,8 @@ public class Controller {
 			System.out.println("Please use only letters! \nEnter Customer Name: ");
 			scannerCustomer.nextLine().toUpperCase();
 		}
-		String name = scannerCustomer.nextLine().toUpperCase();;
+		String name = scannerCustomer.nextLine().toUpperCase();
+		;
 		String email = "invalid"; // not the best solution, but that's what I could think about
 		while (!isEmailValid(email)) { // so it calls the loop automatically
 			System.out.println("Enter valid customer email:");
@@ -97,7 +101,8 @@ public class Controller {
 		System.out.println("email: " + email);
 		// System.out.println("Subscription: " + ml.getMembership());
 
-		//customerCount = customerCount + 1; // add +1 for the ID variable each new customer created.
+		// customerCount = customerCount + 1; // add +1 for the ID variable each new
+		// customer created.
 
 		view.addAnotherCustomerQuestion(); // method that doesn't let the Menu loop back instantly
 		// it requires user permission beforehand.
@@ -327,7 +332,7 @@ public class Controller {
 			System.out.println("Something went wrong, please restart the application!");
 		}
 		mediaList.add(new Movie(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre, mediaDirector,
-				MembershipOptions.VIDEOLOVER));// creating new object and adding to the list
+				MembershipOptions.VIDEOLOVER, true));// creating new object and adding to the list
 
 		System.out.println("\nMovie successfully created!");// printing the results
 		System.out.println("ID Number: " + mediaID);
@@ -398,7 +403,7 @@ public class Controller {
 			System.out.println("Something went wrong, please restart the application!");
 		}
 		mediaList.add(new BoxSet(mediaID, mediaName, mediaType, mediaReleaseYear, mediaGenre, numberOfSeasons,
-				MembershipOptions.VIDEOLOVER));
+				MembershipOptions.VIDEOLOVER, true));
 
 		System.out.println("\nTV Show successfully created!");
 		System.out.println("ID Number: " + mediaID);
@@ -441,7 +446,8 @@ public class Controller {
 		} catch (IOException e) {
 			System.out.println("Something went wrong, please restart the application!");
 		}
-		mediaList.add(new Music(mediaID, mediaName, mediaReleaseYear, mediaBandName, MembershipOptions.MUSICLOVER));
+		mediaList.add(
+				new Music(mediaID, mediaName, mediaReleaseYear, mediaBandName, MembershipOptions.MUSICLOVER, true));
 
 		System.out.println("\nMusic record successfully created!");
 		System.out.println("ID Number: " + mediaID);
@@ -500,7 +506,7 @@ public class Controller {
 			System.out.println("Something went wrong, please restart the application!");
 		}
 		mediaList.add(new LiveConcert(mediaID, mediaName, mediaType, mediaReleaseYear, mediaBandName,
-				MembershipOptions.MUSICLOVER));
+				MembershipOptions.MUSICLOVER, true));
 
 		System.out.println("Movie was successfully created!\n");
 		System.out.println("ID Number: " + mediaID);
@@ -554,8 +560,7 @@ public class Controller {
 				System.out.println("Year: " + result.getMediaReleaseYear());
 				System.out.println("Media Format: " + result.getMediaType());
 				System.out.println("Membership Type" + result.getMembershipOptions());
-				// TODO include a isAvailable return here and an option to rent the title from
-				// here
+
 				view.searchAnotherMedia();
 			}
 		}
@@ -569,34 +574,37 @@ public class Controller {
 		// the list handles all kinds of Media
 		// no need to set format for Music objects, because it is defined in the
 		// constructor -> can only be CD
-		mediaList
-				.add(new Movie(1, "BACURAU", Format.BluRay, 1995, "HORROR", "HITCHCOCK", MembershipOptions.VIDEOLOVER));
-		mediaList.add(
-				new Movie(2, "PARASITE", Format.DVD, 2019, "THRILLER", "PT ANDERSON", MembershipOptions.VIDEOLOVER));
+		mediaList.add(new Movie(1, "BACURAU", Format.BluRay, 1995, "HORROR", "HITCHCOCK", MembershipOptions.VIDEOLOVER,
+				true));
+		mediaList.add(new Movie(2, "PARASITE", Format.DVD, 2019, "THRILLER", "PT ANDERSON",
+				MembershipOptions.VIDEOLOVER, true));
 		mediaList.add(new Movie(3, "MELANCHOLIA", Format.BluRay, 2015, "DRAMA", "LARS VON TRIER",
-				MembershipOptions.VIDEOLOVER));
-		mediaList.add(new Movie(4, "PSYCHO", Format.DVD, 1970, "HORROR", "Hitchcock", MembershipOptions.VIDEOLOVER));
+				MembershipOptions.VIDEOLOVER, true));
 		mediaList.add(
-				new Movie(5, "SWALLOW", Format.BluRay, 1995, "COMEDY", "COFFIN JOE", MembershipOptions.VIDEOLOVER));
-		mediaList.add(new Music(6, "EXTRAORDINARY MACHINE", 2000, "FIONA APPLE", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(7, "PARKLIVE", 2012, "BLUR", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(8, "THE ERASER", 2006, "THOM YORKE", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(9, "AMNESIAC", 2001, "RADIOHEAD", MembershipOptions.MUSICLOVER));
-		mediaList.add(new Music(10, "UTOPIA", 2017, "BJORK", MembershipOptions.MUSICLOVER));
+				new Movie(4, "PSYCHO", Format.DVD, 1970, "HORROR", "Hitchcock", MembershipOptions.VIDEOLOVER, true));
+		mediaList.add(new Movie(5, "SWALLOW", Format.BluRay, 1995, "COMEDY", "COFFIN JOE", MembershipOptions.VIDEOLOVER,
+				true));
+		mediaList.add(new Music(6, "EXTRAORDINARY MACHINE", 2000, "FIONA APPLE", MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new Music(7, "PARKLIVE", 2012, "BLUR", MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new Music(8, "THE ERASER", 2006, "THOM YORKE", MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new Music(9, "AMNESIAC", 2001, "RADIOHEAD", MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new Music(10, "UTOPIA", 2017, "BJORK", MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new LiveConcert(11, "MTV UNPLUGGED", Format.BluRay, 1993, "NIRVANA", MembershipOptions.MUSICLOVER,
+				true));
 		mediaList.add(
-				new LiveConcert(11, "MTV UNPLUGGED", Format.BluRay, 1993, "NIRVANA", MembershipOptions.MUSICLOVER));
-		mediaList.add(new LiveConcert(12, "IN RAINBOWS", Format.DVD, 2015, "RADIOHEAD", MembershipOptions.MUSICLOVER));
+				new LiveConcert(12, "IN RAINBOWS", Format.DVD, 2015, "RADIOHEAD", MembershipOptions.MUSICLOVER, true));
 		mediaList.add(new LiveConcert(13, "LIVE AT MONTEREY", Format.BluRay, 1970, "JIMI HENDRIX",
-				MembershipOptions.MUSICLOVER));
-		mediaList
-				.add(new LiveConcert(14, "LIVE IN CUBA", Format.DVD, 2005, "AUDIOSLAVE", MembershipOptions.MUSICLOVER));
+				MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new LiveConcert(14, "LIVE IN CUBA", Format.DVD, 2005, "AUDIOSLAVE", MembershipOptions.MUSICLOVER,
+				true));
+		mediaList.add(new LiveConcert(15, "UNPLUGGED", Format.BluRay, 2000, "ALICE IN CHAINS",
+				MembershipOptions.MUSICLOVER, true));
+		mediaList.add(new BoxSet(16, "FRIENDS", Format.DVD, 2005, "COMEDY", 5, MembershipOptions.TVLOVER, true));
+		mediaList.add(new BoxSet(17, "DEXTER", Format.BluRay, 1997, "DRAMA", 6, MembershipOptions.TVLOVER, true));
+		mediaList.add(new BoxSet(18, "LOST", Format.BluRay, 2015, "HORROR", 7, MembershipOptions.TVLOVER, true));
+		mediaList.add(new BoxSet(19, "YEARS AND YEARS", Format.DVD, 1985, "DRAMA", 1, MembershipOptions.TVLOVER, true));
 		mediaList.add(
-				new LiveConcert(15, "UNPLUGGED", Format.BluRay, 2000, "ALICE IN CHAINS", MembershipOptions.MUSICLOVER));
-		mediaList.add(new BoxSet(16, "FRIENDS", Format.DVD, 2005, "COMEDY", 5, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(17, "DEXTER", Format.BluRay, 1997, "DRAMA", 6, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(18, "LOST", Format.BluRay, 2015, "HORROR", 7, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(19, "YEARS AND YEARS", Format.DVD, 1985, "DRAMA", 1, MembershipOptions.TVLOVER));
-		mediaList.add(new BoxSet(20, "UNBELIEVABLE", Format.BluRay, 2000, "THRILLER", 2, MembershipOptions.TVLOVER));
+				new BoxSet(20, "UNBELIEVABLE", Format.BluRay, 2000, "THRILLER", 2, MembershipOptions.TVLOVER, true));
 
 	}
 
@@ -616,7 +624,7 @@ public class Controller {
 	 * @EdwardsJr ---------
 	 */
 
-	public void fillRentList() {//just for test purposes
+	public void fillRentList() {// just for test purposes
 
 		Iterator<Rent> litr = rentedTitlesList.iterator();
 		System.out.println("Complete rent list:");
@@ -642,10 +650,12 @@ public class Controller {
 			if (customerID == resultID.getID()) {
 				System.out.println("Customer ID: " + resultID.getID());
 				System.out.println("Customer Name: " + resultID.getName());
-				
+				System.out.println("Membership type: " + resultID.getMembership());
+
+				customer = new Customer(resultID.getID(), resultID.getName(), resultID.getEmail());
+
 			}
 		}
-		
 
 		scannerMedia = new Scanner(System.in);
 		System.out.println("Enter media ID: ");
@@ -656,56 +666,92 @@ public class Controller {
 				System.out.println("Media ID: " + resultID.getMediaID());
 				System.out.println("Media Name " + resultID.getMediaName());
 				System.out.println("Media Format: " + resultID.getMediaType());
+				System.out.println("Media Type: " + resultID.getClass());
+
+				//falei com o Daniel e ele disse que seria melhor instaciar um objeto com todas as informacoes, assim podemos usa-lo em todos os lugares
+				//esta instanciado la no comeco da pagina
+				media = new Media(resultID.getMediaID(), resultID.getMediaName(), resultID.getMediaType(),
+						resultID.getMediaReleaseYear(), resultID.isAvailable());
+
+			}
+
+		}
+		//se voce alugar uma midia, vai ver que ela muda isAvailable pra FALSE, mas nao consigo fazer essa informacao aparecer quando tento outr rent com a mesma midia
+		if (media.isAvailable() == false) {
+			System.out.println("Sorry Media is not available at the moment!");
+			view.exitQuestion();
+		}
+
+		if (!isMatchSubscription(mediaID, customerID)) {
+			System.out.println("Subscription doesn't match with media Membership Option");
+			view.exitQuestion();
+		}
+
+
+		System.out.println("Rent media " + mediaID + " to customer " + customerID + " ? \n1 Yes \n2 No");
+		int option = scannerCustomer.nextInt();
+		if (option == 1) {
+
+			//nao consigo fazer esse contados funcionar... criei ate uma array na sua classe customer, com 4 posicoes, a cada locacao, conta uma pro cliente.
+			int total = customer.getNumberOfTitlesRented();
+			if (total >= 4) {
+				System.out.println(
+						"Sorry, you have reached your limit of titles per customer. Please return a title in order to rent another one");
+			}
+
+			else {
+				rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() +1 , customerID, mediaID, rentDate, returnDate,	setMediaRented(media.getMediaID())));
+				customer.setMediaRented(media);
+				System.out.println(customer.getNumberOfTitlesRented());
+				 System.out.println("\nMedia Rent confirmation: \nCustomer: " + customerID +
+				 "\nMedia: " + mediaID
+				 + "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate);
+				 //apos confirmar a locacao, o available passa pra FALSE, faca uma locacao e depois va se SEARCH e LIST ALL MEDIA
+				 media.setAvailable(false);
+				view.exitQuestion();
+
+			}
+
+			view.exitQuestion();
+		}
+
+	}
+
+	private boolean setMediaRented(int id) {
+		boolean available = true;
+		for (Media resultID : mediaList) {
+			if (id == resultID.getMediaID()) {
+				resultID.setAvailable(false);
+				//available = false;
+			} else {
 			}
 		}
-			if(!isMatchSubscription(mediaID, customerID)) {
-				System.out.println("Subscription doesn't match with media Membership Option");
-				view.exitQuestion();
-		}
-		
-		System.out.println("Date of rent: " + rentDate);
-		System.out.println("Date of return: " + returnDate);
-		
-
-		rentedTitlesList.add(new Rent(1, customerID, mediaID, rentDate, returnDate, "customer status", isAvailable(false)));
-		System.out.println(rentedTitlesList);
-		//fillRentList();
-		
-
-		view.exitQuestion();
-		//fillRentList();
-		
+		return available;
 	}
+
+
 	public boolean isMatchSubscription(int mediaID, int customerID) {
-		MembershipOptions customerSubscription = customerList.get(customerID-1).getMembership();
-		MembershipOptions mediaCategory = mediaList.get(mediaID-1).getMembershipOptions();
-		
-		if(customerSubscription == MembershipOptions.PREMIUM) {
+		MembershipOptions customerSubscription = customerList.get(customerID - 1).getMembership();
+		MembershipOptions mediaCategory = mediaList.get(mediaID - 1).getMembershipOptions();
+
+		if (customerSubscription == MembershipOptions.PREMIUM) {
 			return true;
-		}else if(customerSubscription == mediaCategory) {
+		} else if (customerSubscription == mediaCategory) {
 			return true;
 		}
-		
 		return false;
-		
 	}
-	
 
 	public void returnRent() {
 
 	}
 
+
+
 	public void loyaltyPoints(int points) {
 
 	}
 
-	public boolean isAvailable(boolean b) {
-		return false;
-	}
 
-	public void checkCustomerStatus() {
-//		return true;
-		// TODO: check if customer has a media rented and check the return date
-	}
 
 }

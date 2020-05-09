@@ -11,16 +11,18 @@ public class Media {
 	protected String mediaName;
 	protected Format mediaType;
 	protected int  mediaReleaseYear;
-	protected  MembershipOptions membershipOptions;
+	protected MembershipOptions membershipOptions;
+	protected boolean isAvailable;
 		
 	
 	//default constructor using all fields
-	public Media(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear) {
+	public Media(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, boolean isAvailable) {
 		super();
 		this.mediaID = mediaID;
 		this.mediaName = mediaName;
 		this.mediaType = mediaType;
 		this.mediaReleaseYear = mediaReleaseYear;
+		this.isAvailable = isAvailable;
 		
 	}
 	
@@ -70,12 +72,24 @@ public class Media {
 		this.membershipOptions = membershipOptions;
 	}
 	
+	public boolean isAvailable() {
+		return true;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
 	//toString method
 	@Override
 	public String toString() {
 		return "Media [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions + "]";
+				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
+				+ ", isAvailable=" + isAvailable + "]";
 	}
+
+	
+
 
 	
 

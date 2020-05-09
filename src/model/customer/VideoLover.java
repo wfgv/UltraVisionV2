@@ -1,5 +1,7 @@
 package model.customer;
 
+import model.media.Media;
+
 public class VideoLover extends Customer {
 
 	public VideoLover(int customerID, String customerName, String customerEmail, MembershipOptions membershipOptions) {

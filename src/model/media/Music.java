@@ -8,8 +8,8 @@ public class Music extends Media {
 
 	private String mediaBandName;
 
-	public Music(int mediaID, String mediaName, int mediaReleaseYear, String mediaBandName, MembershipOptions membershipOptions) {
-		super(mediaID, mediaName, Format.CD , mediaReleaseYear);//from the parent constructor
+	public Music(int mediaID, String mediaName, int mediaReleaseYear, String mediaBandName, MembershipOptions membershipOptions, boolean isAvailable) {
+		super(mediaID, mediaName, Format.CD , mediaReleaseYear, isAvailable);//from the parent constructor
 		//format is defined here based on a ENUM -> music, in this scenario, can be only on a CD format
 		this.mediaBandName = mediaBandName;
 		this.membershipOptions = membershipOptions;
@@ -47,14 +47,23 @@ public class Music extends Media {
 	public void setMediaBandName(String mediaBandName) {
 		this.mediaBandName = mediaBandName;
 	}
+	public boolean isAvailable() {
+		return isAvailable;
+	}
 
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+	
 	//toString method
 	@Override
 	public String toString() {
 		return "Music [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", mediaBandName=" + mediaBandName + "]";
+				+ ", isAvailable=" + isAvailable + ", mediaBandName=" + mediaBandName + "]";
 	}
+
+
 
 	
 

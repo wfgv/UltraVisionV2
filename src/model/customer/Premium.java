@@ -1,5 +1,7 @@
 package model.customer;
 
+import model.media.Media;
+
 public class Premium extends Customer {
 
 	public Premium(int customerID, String customerName, String customerEmail, MembershipOptions membershipOptions) {

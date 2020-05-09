@@ -10,19 +10,16 @@ public class Rent {
 	private int mediaID;
 	private LocalDate rentDate;
 	private LocalDate returnDate;
-	private String customerStatus;//TODO NOT NECESSARY
 	private boolean isAvailable;
 	
 	
-	public Rent(int rentID, int customerID, int mediaID, LocalDate rentDate, LocalDate returnDate,
-			String customerStatus, boolean isAvailable) {
+	public Rent(int rentID, int customerID, int mediaID, LocalDate rentDate, LocalDate returnDate, boolean isAvailable) {
 		super();
 		this.rentID = rentID;
 		this.customerID = customerID;
 		this.mediaID = mediaID;
 		this.rentDate = rentDate;
 		this.returnDate = returnDate;
-		this.customerStatus = customerStatus;
 		this.isAvailable = isAvailable;
 	}
 
@@ -66,27 +63,19 @@ public class Rent {
 		this.returnDate = returnDate;
 	}
 
-	public String getCustomerStatus() {
-		return customerStatus;
-	}
-
-	public void setCustomerStatus(String customerStatus) {
-		this.customerStatus = customerStatus;
-	}
-
 	public boolean isAvailable() {
 		return isAvailable;
 	}
 
-	public void setAvailable(boolean isAvailable) {
+	public boolean setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Rent [rentID=" + rentID + ", customerID=" + customerID + ", mediaID=" + mediaID + ", rentDate="
-				+ rentDate + ", returnDate=" + returnDate + ", customerStatus=" + customerStatus + ", isAvailable="
-				+ isAvailable + "]";
+				+ rentDate + ", returnDate=" + returnDate + ", isAvailable=" + isAvailable + "]";
 	}
 	
 }
