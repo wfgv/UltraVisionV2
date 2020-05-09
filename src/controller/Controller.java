@@ -616,7 +616,7 @@ public class Controller {
 	 * @EdwardsJr ---------
 	 */
 
-	public void fillRentList() {
+	public void fillRentList() {//just for test purposes
 
 		Iterator<Rent> litr = rentedTitlesList.iterator();
 		System.out.println("Complete rent list:");
@@ -653,6 +653,7 @@ public class Controller {
 			if (mediaID == resultID.getMediaID()) {
 				System.out.println("Media ID: " + resultID.getMediaID());
 				System.out.println("Media Name " + resultID.getMediaName());
+				System.out.println("Media Format: " + resultID.getMediaType());
 			}
 		}
 		
@@ -661,18 +662,12 @@ public class Controller {
 		
 
 		rentedTitlesList.add(new Rent(1, customerID, mediaID, rentDate, returnDate, "customer status", isAvailable(false)));
+		System.out.println(rentedTitlesList);
+		//fillRentList();
 		
-		fillRentList();
-		
-//		System.out.println(rentedTitlesList);
-		
-//		Iterator<Rent> litr = rentedTitlesList.iterator();
-//		System.out.println("Complete media list:");
-//		while (litr.hasNext()) {
-//			System.out.println(litr.next());
-//		}
+
 		view.exitQuestion();
-		fillRentList();
+		//fillRentList();
 		
 	}
 	

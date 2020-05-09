@@ -10,7 +10,7 @@ public class Rent {
 	private int mediaID;
 	private LocalDate rentDate;
 	private LocalDate returnDate;
-	private String customerStatus;//TODO to verify the amount of rents in the current period - probably boolean
+	private String customerStatus;//TODO NOT NECESSARY
 	private boolean isAvailable;
 	
 	
