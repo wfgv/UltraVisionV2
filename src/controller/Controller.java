@@ -30,7 +30,7 @@ public class Controller {
 
 	private View view; // initialising the link between view and controller @WillianVoelz
 	private List<Customer> customerList = new ArrayList<Customer>(); // arraylist of customers @WillianVoelz
-	private int customerCount = 1; // counter for customer ID , it increases by 1 every customer added.
+	//private int customerCount = 1; // counter for customer ID , it increases by 1 every customer added.
 	private Scanner scannerCustomer; // @WillianVoelz
 	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader
@@ -53,18 +53,18 @@ public class Controller {
 
 		scannerCustomer = new Scanner(System.in);
 
-		int id = customerCount;
+		int id = customerList.size() + 1;
 		System.out.println("Enter customer Name: ");
 		while (!scannerCustomer.hasNext("[a-zA-Z]+")) { // while name is not correct, keep looping asking for letters
 														// only
 			System.out.println("Please use only letters! \nEnter Customer Name: ");
-			scannerCustomer.nextLine();
+			scannerCustomer.nextLine().toUpperCase();
 		}
-		String name = scannerCustomer.nextLine();
+		String name = scannerCustomer.nextLine().toUpperCase();;
 		String email = "invalid"; // not the best solution, but that's what I could think about
 		while (!isEmailValid(email)) { // so it calls the loop automatically
 			System.out.println("Enter valid customer email:");
-			email = scannerCustomer.nextLine();
+			email = scannerCustomer.nextLine().toUpperCase();
 		}
 		System.out.println("Select subcription: ");
 		view.printMembershipOptions(); // prompt membership options
@@ -97,7 +97,7 @@ public class Controller {
 		System.out.println("email: " + email);
 		// System.out.println("Subscription: " + ml.getMembership());
 
-		customerCount = customerCount + 1; // add +1 for the ID variable each new customer created.
+		//customerCount = customerCount + 1; // add +1 for the ID variable each new customer created.
 
 		view.addAnotherCustomerQuestion(); // method that doesn't let the Menu loop back instantly
 		// it requires user permission beforehand.
@@ -219,7 +219,7 @@ public class Controller {
 		} else if (isCustomerRegistered(customerID)) {
 			scannerCustomer = new Scanner(System.in);
 			System.out.println("New name: ");
-			String newName = scannerCustomer.nextLine();
+			String newName = scannerCustomer.nextLine().toUpperCase();
 
 			customerList.get(customerID - 1).setName(newName);
 
@@ -240,10 +240,10 @@ public class Controller {
 		} else if (isCustomerRegistered(customerID)) {
 			scannerCustomer = new Scanner(System.in);
 			System.out.println("New Email: ");
-			String newEmail = scannerCustomer.nextLine();
+			String newEmail = scannerCustomer.nextLine().toUpperCase();
 			while (!isEmailValid(newEmail)) { // so it calls the loop automatically
 				System.out.println("Enter valid customer email:");
-				newEmail = scannerCustomer.nextLine();
+				newEmail = scannerCustomer.nextLine().toUpperCase();
 			}
 
 			customerList.get(customerID - 1).setEmail(newEmail);
@@ -256,10 +256,10 @@ public class Controller {
 	// methods to fill the arrays with data
 	public void fillCustomerList() {
 
-		Customer musicLover1 = new MusicLover(20, "Renan", "renan@cct.ie", MembershipOptions.MUSICLOVER);
-		Customer videoLover1 = new VideoLover(21, "Jorge", "jorge@cct.ie", MembershipOptions.VIDEOLOVER);
-		Customer TVLover1 = new TVLover(22, "Marta", "marta@cct.ie", MembershipOptions.TVLOVER);
-		Customer premium1 = new Premium(23, "Leyla", "leyla@cct.ie", MembershipOptions.PREMIUM);
+		Customer musicLover1 = new MusicLover(1, "RENAN", "RENAN@CCT.IE", MembershipOptions.MUSICLOVER);
+		Customer videoLover1 = new VideoLover(2, "JORGE", "JORGE@CCT.IE", MembershipOptions.VIDEOLOVER);
+		Customer TVLover1 = new TVLover(3, "MARTA", "MARTA@CCT.IE", MembershipOptions.TVLOVER);
+		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM);
 
 		customerList.add(musicLover1);
 		customerList.add(videoLover1);
@@ -642,8 +642,10 @@ public class Controller {
 			if (customerID == resultID.getID()) {
 				System.out.println("Customer ID: " + resultID.getID());
 				System.out.println("Customer Name: " + resultID.getName());
+				
 			}
 		}
+		
 
 		scannerMedia = new Scanner(System.in);
 		System.out.println("Enter media ID: ");
@@ -655,6 +657,10 @@ public class Controller {
 				System.out.println("Media Name " + resultID.getMediaName());
 				System.out.println("Media Format: " + resultID.getMediaType());
 			}
+		}
+			if(!isMatchSubscription(mediaID, customerID)) {
+				System.out.println("Subscription doesn't match with media Membership Option");
+				view.exitQuestion();
 		}
 		
 		System.out.println("Date of rent: " + rentDate);
@@ -668,6 +674,19 @@ public class Controller {
 
 		view.exitQuestion();
 		//fillRentList();
+		
+	}
+	public boolean isMatchSubscription(int mediaID, int customerID) {
+		MembershipOptions customerSubscription = customerList.get(customerID-1).getMembership();
+		MembershipOptions mediaCategory = mediaList.get(mediaID-1).getMembershipOptions();
+		
+		if(customerSubscription == MembershipOptions.PREMIUM) {
+			return true;
+		}else if(customerSubscription == mediaCategory) {
+			return true;
+		}
+		
+		return false;
 		
 	}
 	
