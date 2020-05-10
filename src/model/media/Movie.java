@@ -60,23 +60,20 @@ public class Movie extends Media {
 	}
 	
 	public boolean isAvailable() {
-		return isAvailable;
+		return this.isAvailable;
 	}
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
-
+	//toString method
 	@Override
 	public String toString() {
-		return "Movie [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", isAvailable=" + isAvailable + ", mediaGenre=" + mediaGenre + ", mediaDirector=" + mediaDirector
-				+ "]";
+		return "\nMedia Type: Movie \nID: " + mediaID + "\nTitle: " + mediaName + "\nFormat: " + mediaType
+				+ "\nRelease Year: " + mediaReleaseYear + "\nGenre: " + mediaGenre + "\nDirector: " + mediaDirector
+				+ "\nMembership Type: " + membershipOptions + "\nAvailability: " + isAvailable + "";
 	}
-	
-	
-	//toString method
-
-
 }
+
+
+

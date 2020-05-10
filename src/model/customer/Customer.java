@@ -20,7 +20,8 @@ public class Customer {
 		this.customerID = customerID;
 		this.customerName = customerName;
 		this.customerEmail = customerEmail;
-		this.mediaRented = new Media[4];//essa array e pra armazenar as locacoes... talvez seja melhor apenas um contador, nao acha?
+		this.mediaRented = new Media[4];// essa array e pra armazenar as locacoes... talvez seja melhor apenas um
+										// contador, nao acha?
 		this.loyaltyPoints = loyaltyPoints;
 	}
 
@@ -61,8 +62,9 @@ public class Customer {
 		return mediaRented;
 	}
 
-	public void setMediaRented(Media media) {//sinceramente nao entendi direito esses metodos, fiz essa parte com a ajuda do Daniel e tals. Tenho uma ideia para podermos seguir
-		//o que mandei naquela imagem via whatsapp
+	public void setMediaRented(Media media) {// sinceramente nao entendi direito esses metodos, fiz essa parte com a
+												// ajuda do Daniel e tals. Tenho uma ideia para podermos seguir
+		// o que mandei naquela imagem via whatsapp
 
 		for (int i = 0; i < this.mediaRented.length; i++)
 			if (this.mediaRented[i] == null) {
@@ -73,29 +75,19 @@ public class Customer {
 
 	}
 
-	public int getNumberOfTitlesRented() {
-		int count = 0;
-
-		for (int i = 0; i < mediaRented.length; i++) {
-
-			if (mediaRented[i] != null) {
-				count++;
-			}
-		}
-
-		return count;
-	}
 	public int getLoyaltyPoints() {
 		return loyaltyPoints;
 	}
+
 	public void setLoyaltyPoints(int loyaltyPoints) {
 		this.loyaltyPoints = loyaltyPoints;
-		
-	}public void add10PointsPerRent() {
-		loyaltyPoints = loyaltyPoints + 10;
-		
+
 	}
-	
+
+	public void add10PointsPerRent() {
+		loyaltyPoints = loyaltyPoints + 10;
+
+	}
 
 	@Override
 	public String toString() {

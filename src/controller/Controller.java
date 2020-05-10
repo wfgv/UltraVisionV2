@@ -84,13 +84,13 @@ public class Controller {
 			customerList.add(new MusicLover(id, name, email, MembershipOptions.MUSICLOVER, 0));
 
 		} else if (membershipOption == 2) {
-			customerList.add(new VideoLover(id, name, email, MembershipOptions.VIDEOLOVER,0));
+			customerList.add(new VideoLover(id, name, email, MembershipOptions.VIDEOLOVER, 0));
 
 		} else if (membershipOption == 3) {
-			customerList.add(new TVLover(id, name, email, MembershipOptions.TVLOVER,0));
+			customerList.add(new TVLover(id, name, email, MembershipOptions.TVLOVER, 0));
 
 		} else if (membershipOption == 4) {
-			customerList.add(new Premium(id, name, email, MembershipOptions.PREMIUM,0));
+			customerList.add(new Premium(id, name, email, MembershipOptions.PREMIUM, 0));
 		} else {
 			System.out.println("Subscription type not found: ");
 			addCustomer();
@@ -261,10 +261,10 @@ public class Controller {
 	// methods to fill the arrays with data
 	public void fillCustomerList() {
 
-		Customer musicLover1 = new MusicLover(1, "RENAN", "RENAN@CCT.IE", MembershipOptions.MUSICLOVER,0);
-		Customer videoLover1 = new VideoLover(2, "JORGE", "JORGE@CCT.IE", MembershipOptions.VIDEOLOVER,0);
-		Customer TVLover1 = new TVLover(3, "MARTA", "MARTA@CCT.IE", MembershipOptions.TVLOVER,0);
-		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM,90);
+		Customer musicLover1 = new MusicLover(1, "RENAN", "RENAN@CCT.IE", MembershipOptions.MUSICLOVER, 0);
+		Customer videoLover1 = new VideoLover(2, "JORGE", "JORGE@CCT.IE", MembershipOptions.VIDEOLOVER, 0);
+		Customer TVLover1 = new TVLover(3, "MARTA", "MARTA@CCT.IE", MembershipOptions.TVLOVER, 0);
+		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM, 90);
 
 		customerList.add(musicLover1);
 		customerList.add(videoLover1);
@@ -608,7 +608,7 @@ public class Controller {
 
 	}
 
-	public void viewMediaList() {// listing all the list elements using iterator @EdwardsJr
+	public void viewMediaList() {// listing all the elements using iterator @EdwardsJr
 
 		Iterator<Media> litr = mediaList.iterator();
 		System.out.println("Complete media list:");
@@ -621,7 +621,8 @@ public class Controller {
 	/*
 	 * -------- From this point, all methods are related to Rent manipulation.
 	 * 
-	 * @EdwardsJr ---------
+	 * @EdwardsJr AND @WillianVoelz---------
+	 *
 	 */
 
 	public void fillRentList() {// just for test purposes
@@ -636,9 +637,6 @@ public class Controller {
 
 	public void addRent() {
 
-		// Iterator<Media> mediaIterator = mediaList.iterator();
-		// Iterator<Customer> customerIterator = customerList.iterator();
-
 		LocalDate rentDate = LocalDate.now();// setting the date for now
 		LocalDate returnDate = rentDate.plusDays(3);// adding 3 days to set the return
 
@@ -652,8 +650,10 @@ public class Controller {
 				System.out.println("Customer Name: " + resultID.getName());
 				System.out.println("Membership type: " + resultID.getMembership());
 
-				customer = new Customer(resultID.getID(), resultID.getName(), resultID.getEmail(), resultID.getLoyaltyPoints());
-				
+				// new instance of the object CUSTOMER, so we can use all the details inside
+				// this method
+				customer = new Customer(resultID.getID(), resultID.getName(), resultID.getEmail(),
+						resultID.getLoyaltyPoints());
 			}
 		}
 
@@ -668,60 +668,84 @@ public class Controller {
 				System.out.println("Media Format: " + resultID.getMediaType());
 				System.out.println("Media Type: " + resultID.getClass());
 
-				//falei com o Daniel e ele disse que seria melhor instaciar um objeto com todas as informacoes, assim podemos usa-lo em todos os lugares
-				//esta instanciado la no comeco da pagina
+				// new instance of the object MEDIA, so we can use all the details inside this
+				// method
 				media = new Media(resultID.getMediaID(), resultID.getMediaName(), resultID.getMediaType(),
 						resultID.getMediaReleaseYear(), resultID.isAvailable());
-
 			}
-
 		}
-		//se voce alugar uma midia, vai ver que ela muda isAvailable pra FALSE, mas nao consigo fazer essa informacao aparecer quando tento outr rent com a mesma midia
+
 		if (media.isAvailable() == false) {
-			System.out.println("Sorry Media is not available at the moment!");
+			System.out.println("Sorry, media is not available at the moment!");
 			view.exitQuestion();
 		}
-		// method that check the customer subscription with the type of media that is being rented
+
+		// method that check the customer subscription with the type of media that is
+		// being rented
 		if (!isMatchSubscription(mediaID, customerID)) {
 			System.out.println("Subscription doesn't match with media Membership Option");
 			view.exitQuestion();
-		} 
-		// Method to check if customer has 100 loyalty points 
-		if(freeRent(customerID)) {
+		}
+		// Method to check if customer has 100 loyalty points
+		if (freeRent(customerID)) {
 			System.out.println("Free rent! There is no need to pay for this one");
 		}
 
-
-		System.out.println("Rent media " + mediaID + " to customer " + customerID + " ? \n1 Yes \n2 No");
+		System.out.println(
+				"Rent media " + media.getMediaName() + " to customer " + customer.getName() + " ? \n1 Yes \n2 No");
 		int option = scannerCustomer.nextInt();
 		if (option == 1) {
 
-			//nao consigo fazer esse contados funcionar... criei ate uma array na sua classe customer, com 4 posicoes, a cada locacao, conta uma pro cliente.
-			int total = customer.getNumberOfTitlesRented();
-			if (total >= 4) {
+			int total = getNumberOfTitlesRented();
+
+			if (total > 4) {
 				System.out.println(
 						"Sorry, you have reached your limit of titles per customer. Please return a title in order to rent another one");
 			}
 
 			else {
-				rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() +1 , customerID, mediaID, rentDate, returnDate,	setMediaRented(media.getMediaID())));
-				
 				// method located inside Customer class, it increases the loyaltyPoints int;
-				customerList.get(customerID-1).add10PointsPerRent();
+				customerList.get(customerID - 1).add10PointsPerRent();
 				customer.setMediaRented(media);
-				System.out.println(customer.getNumberOfTitlesRented());
-				 System.out.println("\nMedia Rent confirmation: \nCustomer: " + customerID +
-				 "\nMedia: " + mediaID
-				 + "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate);
-				 //apos confirmar a locacao, o available passa pra FALSE, faca uma locacao e depois va se SEARCH e LIST ALL MEDIA
-				 media.setAvailable(false);
+
+				System.out.println("\nMedia Rent confirmation: \nCustomer: " + customerID + "\nMedia: " + mediaID
+						+ "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate + "\nLoyalty Points: "
+						+ customer.getLoyaltyPoints());
+				
+				media.setAvailable(false);// setting the availability to false after rent confirmation
+				rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() + 1, customerID, customer.getName(),
+						mediaID, media.getMediaName(), rentDate, returnDate, setMediaRented(media.getMediaID())));
+				
+				//adding the results to a new array, to collect only the rented titles and setting the media availability to FALSE
+				//rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() + 1, customer.getID(), customer.getName(), media.getMediaID(), media.getMediaName(), rentDate, returnDate, false));
+
 				view.exitQuestion();
-
 			}
-
 			view.exitQuestion();
 		}
+	}
 
+	public int getNumberOfTitlesRented() {
+
+		/*
+		 * Starts the counter at one ignoring the index which starts in zero search for
+		 * a specific customer ID in the rentedArrayList and every time the ID is found
+		 * the counter proceeds one step forward. Also, when found it changes the value
+		 * of the boolean found to true. Finally, it returns the sum of count.
+		 */
+		int count = 1;
+		boolean found = false;
+		for (int i = 0; i < rentedTitlesList.size(); i++) {
+
+			if (rentedTitlesList.contains(customer.getID()))
+				;
+			{
+				found = true;
+				count++;
+			}
+			found = false;
+		}
+		return count;
 	}
 
 	private boolean setMediaRented(int id) {
@@ -729,7 +753,7 @@ public class Controller {
 		for (Media resultID : mediaList) {
 			if (id == resultID.getMediaID()) {
 				resultID.setAvailable(false);
-				//available = false;
+				// available = false;
 			} else {
 			}
 		}
@@ -748,11 +772,14 @@ public class Controller {
 		}
 		return false;
 	}
-	// if loyaltyPoints is equal or bigger than 100 - display free rent and set counter to zero;
+
+	// if loyaltyPoints is equal or bigger than 100 - display free rent and set
+	// counter to zero;
 	public boolean freeRent(int customerID) {
-		int loyaltyPoints = customerList.get(customerID-1).getLoyaltyPoints();
-		if(loyaltyPoints >= 100) {
-			customerList.get(customerID-1).setLoyaltyPoints(-10);// I had to set it to -10 cause the add10Points method runs anyway after the freeRent is deducted
+		int loyaltyPoints = customerList.get(customerID - 1).getLoyaltyPoints();
+		if (loyaltyPoints >= 100) {
+			customerList.get(customerID - 1).setLoyaltyPoints(-10);// I had to set it to -10 cause the add10Points
+																	// method runs anyway after the freeRent is deducted
 			return true;
 		}
 		return false;
@@ -760,17 +787,41 @@ public class Controller {
 
 	public void returnRent() {
 
-	}
+		fillRentList();
+		
+//		System.out.println("Please inform your Name");
+//		String customerName = scannerCustomer.next();
+		
+		System.out.println("Please insert the name of the title your want to return:");
+		String mediaName = scannerMedia.next();
+		
+		for (Rent resultRent : rentedTitlesList) {
+			if(mediaName == resultRent.getMediaName()) {
+				rentedTitlesList.remove(resultRent);
+			}
+		}
 
- // option 8 in the Menu ( it returns loyaltyPoints of the requested customerID;
+//		for (Rent result : rentedTitlesList) {
+//			if (mediaName == result.getMediaName() && customerName == result.getCustumerName()) {
+//				System.out.println("Media Name = " + result.getMediaName());
+//				System.out.println("Rented Date = " + result.getRentDate());
+//				System.out.println("Customer name: " + result.getCustumerName());
+//				
+//				result.setAvailable(true);
+//			}
+
+		fillRentList();
+			
+		}
+		
+	// option 8 in the Menu (it returns loyaltyPoints of the requested customerID;
 	public void checkLoyaltyPoints() {
 		scannerCustomer = new Scanner(System.in);
 		System.out.println("Input customer ID:");
 		int customerID = scannerCustomer.nextInt();
-		int loyaltyPoints = customerList.get(customerID-1).getLoyaltyPoints();
-		System.out.println("CustomerID : "+ customerID + " Has " +loyaltyPoints +" Loyalty points!");
+		int loyaltyPoints = customerList.get(customerID - 1).getLoyaltyPoints();
+		System.out.println("CustomerID : " + customerID + " has " + loyaltyPoints + " Loyalty points!");
 		view.exitQuestion();
 	}
-	
 
 }

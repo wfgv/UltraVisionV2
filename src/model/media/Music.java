@@ -8,14 +8,16 @@ public class Music extends Media {
 
 	private String mediaBandName;
 
-	public Music(int mediaID, String mediaName, int mediaReleaseYear, String mediaBandName, MembershipOptions membershipOptions, boolean isAvailable) {
-		super(mediaID, mediaName, Format.CD , mediaReleaseYear, isAvailable);//from the parent constructor
-		//format is defined here based on a ENUM -> music, in this scenario, can be only on a CD format
+	public Music(int mediaID, String mediaName, int mediaReleaseYear, String mediaBandName,
+			MembershipOptions membershipOptions, boolean isAvailable) {
+		super(mediaID, mediaName, Format.CD, mediaReleaseYear, isAvailable);// from the parent constructor
+		// format is defined here based on a ENUM -> music, in this scenario, can be
+		// only on a CD format
 		this.mediaBandName = mediaBandName;
 		this.membershipOptions = membershipOptions;
 	}
-	
-	//getters and setters
+
+	// getters and setters
 	public int getMediaID() {
 		return mediaID;
 	}
@@ -23,7 +25,7 @@ public class Music extends Media {
 	public void setMediaID(int mediaID) {
 		this.mediaID = mediaID;
 	}
-		
+
 	public String getMediaName() {
 		return mediaName;
 	}
@@ -31,7 +33,7 @@ public class Music extends Media {
 	public void setMediaName(String mediaName) {
 		this.mediaName = mediaName;
 	}
-	
+
 	public int getMediaReleaseYear() {
 		return mediaReleaseYear;
 	}
@@ -39,7 +41,7 @@ public class Music extends Media {
 	public void setMediaReleaseYear(int mediaReleaseYear) {
 		this.mediaReleaseYear = mediaReleaseYear;
 	}
-	
+
 	public String getMediaBandName() {
 		return mediaBandName;
 	}
@@ -47,26 +49,20 @@ public class Music extends Media {
 	public void setMediaBandName(String mediaBandName) {
 		this.mediaBandName = mediaBandName;
 	}
+
 	public boolean isAvailable() {
-		return isAvailable;
+		return this.isAvailable;
 	}
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
-	
-	//toString method
+
+	// toString method
 	@Override
 	public String toString() {
-		return "Music [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", isAvailable=" + isAvailable + ", mediaBandName=" + mediaBandName + "]";
+		return "\nMedia Type: Music \nID: " + mediaID + "\nTitle: " + mediaName + "\nFormat: " + mediaType
+				+ "\nRelease Year: " + mediaReleaseYear + "\nBand/Artist Name: " + mediaBandName + "\nMembership Type: "
+				+ membershipOptions + "\nAvailability: " + isAvailable + "";
 	}
-
-
-
-	
-
-	
-
 }

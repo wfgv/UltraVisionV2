@@ -73,7 +73,7 @@ public class Media {
 	}
 	
 	public boolean isAvailable() {
-		return true;
+		return this.isAvailable;
 	}
 
 	public void setAvailable(boolean isAvailable) {

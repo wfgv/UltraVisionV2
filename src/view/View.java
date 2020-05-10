@@ -130,6 +130,7 @@ public class View {
 					break;
 				case 7:
 					System.out.println("Return Title");
+					controller.returnRent();
 					break;
 				case 8:
 					System.out.println("Membership Options");

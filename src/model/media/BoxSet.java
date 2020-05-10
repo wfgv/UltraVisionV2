@@ -66,23 +66,13 @@ public class BoxSet extends Media {
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
-
-	@Override
-	public String toString() {
-		return "BoxSet [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
-				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
-				+ ", isAvailable=" + isAvailable + ", mediaGenre=" + mediaGenre + ", numberOfSeasons=" + numberOfSeasons
-				+ "]";
-	}
 	
 	//toString method
-
-
-	
-	
-
-	
-
-	
+	@Override
+	public String toString() {
+		return "\nMedia Type: BoxSet \nID: " + mediaID + "\nTitle: " + mediaName + "\nFormat: " + mediaType
+				+ "\nRelease Year: " + mediaReleaseYear + "\nGenre: " + mediaGenre + "\nNumber Of Seasons: " + numberOfSeasons
+				+ "\nMembership Type: " + membershipOptions + "\nAvailability: " + isAvailable + "";
+	}
 	
 }
