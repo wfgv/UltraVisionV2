@@ -5,17 +5,16 @@ package model.media;
 import model.customer.MembershipOptions;
 
 public class Media {
-	
-	//variable declaration
+
+	// variable declaration
 	protected int mediaID;
 	protected String mediaName;
 	protected Format mediaType;
-	protected int  mediaReleaseYear;
+	protected int mediaReleaseYear;
 	protected MembershipOptions membershipOptions;
 	protected boolean isAvailable;
-		
-	
-	//default constructor using all fields
+
+	// default constructor using all fields
 	public Media(int mediaID, String mediaName, Format mediaType, int mediaReleaseYear, boolean isAvailable) {
 		super();
 		this.mediaID = mediaID;
@@ -23,15 +22,10 @@ public class Media {
 		this.mediaType = mediaType;
 		this.mediaReleaseYear = mediaReleaseYear;
 		this.isAvailable = isAvailable;
-		
+
 	}
-	
-//	//blank constructor using no parameters
-//	public Media() {
-//
-//	}
-	
-	//Getters and Setters
+
+	// Getters and Setters
 	public int getMediaID() {
 		return mediaID;
 	}
@@ -55,7 +49,7 @@ public class Media {
 	public void setMediaReleaseYear(int mediaReleaseYear) {
 		this.mediaReleaseYear = mediaReleaseYear;
 	}
-	
+
 	public Format getMediaType() {
 		return mediaType;
 	}
@@ -63,7 +57,7 @@ public class Media {
 	public void setMediaType(Format mediaType) {
 		this.mediaType = mediaType;
 	}
-	
+
 	public MembershipOptions getMembershipOptions() {
 		return membershipOptions;
 	}
@@ -71,7 +65,7 @@ public class Media {
 	public void setMembershipOptions(MembershipOptions membershipOptions) {
 		this.membershipOptions = membershipOptions;
 	}
-	
+
 	public boolean isAvailable() {
 		return this.isAvailable;
 	}
@@ -80,23 +74,12 @@ public class Media {
 		this.isAvailable = isAvailable;
 	}
 
-	//toString method
+	// toString method
 	@Override
 	public String toString() {
 		return "Media [mediaID=" + mediaID + ", mediaName=" + mediaName + ", mediaType=" + mediaType
 				+ ", mediaReleaseYear=" + mediaReleaseYear + ", membershipOptions=" + membershipOptions
 				+ ", isAvailable=" + isAvailable + "]";
 	}
-
-	
-
-
-	
-
-	
-	
-
-	
-	
 
 }

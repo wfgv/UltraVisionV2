@@ -1,4 +1,4 @@
-//@Author Willian Voelz 2018447
+//@Author WillianVoelz 2018447
 
 package model.customer;
 
@@ -20,8 +20,7 @@ public class Customer {
 		this.customerID = customerID;
 		this.customerName = customerName;
 		this.customerEmail = customerEmail;
-		this.mediaRented = new Media[4];// essa array e pra armazenar as locacoes... talvez seja melhor apenas um
-										// contador, nao acha?
+		this.mediaRented = new Media[4];
 		this.loyaltyPoints = loyaltyPoints;
 	}
 
@@ -62,10 +61,7 @@ public class Customer {
 		return mediaRented;
 	}
 
-	public void setMediaRented(Media media) {// sinceramente nao entendi direito esses metodos, fiz essa parte com a
-												// ajuda do Daniel e tals. Tenho uma ideia para podermos seguir
-		// o que mandei naquela imagem via whatsapp
-
+	public void setMediaRented(Media media) {
 		for (int i = 0; i < this.mediaRented.length; i++)
 			if (this.mediaRented[i] == null) {
 				this.mediaRented[i] = media;
@@ -91,8 +87,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "\nCustomer ID: " + this.customerID + " Name: " + this.customerName + " Email: " + this.customerEmail
-				+ " Subscription: " + this.membershipOptions + "Loyalty Points: " + this.loyaltyPoints;
+		return "\nCustomer ID: " + this.customerID + " | Name: " + this.customerName + " | Email: " + this.customerEmail
+				+ " | Subscription: " + this.membershipOptions + " | Loyalty Points: " + this.loyaltyPoints;
 	}
 
 }

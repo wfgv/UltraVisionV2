@@ -1,11 +1,14 @@
 package controller;
+/**
+ *@author WillianVoelz2018447
+ *@author @EdwardsJr2018245
+ */
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -30,12 +33,10 @@ public class Controller {
 
 	private View view; // initialising the link between view and controller @WillianVoelz
 	private List<Customer> customerList = new ArrayList<Customer>(); // arraylist of customers @WillianVoelz
-	// private int customerCount = 1; // counter for customer ID , it increases by 1
-	// every customer added.
 	private Scanner scannerCustomer; // @WillianVoelz
-	boolean exitMainMenu = false; // boolean initialised for do while loop in the main Menu @WillianVoelz
+
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));// declaring BufferedReader
-																							// @Edwards
+																							// // @Edwards
 	private Scanner scannerMedia; // @Edwards
 	private List<Media> mediaList = new ArrayList<Media>(); // @Edwards
 	private List<Rent> rentedTitlesList = new ArrayList<Rent>();
@@ -44,8 +45,9 @@ public class Controller {
 
 	public Controller() {
 		view = new View(this);
-		fillCustomerList();
-		fillMediaList();
+		// dummy data generated to play around 
+		fillCustomerList(); // customer List populated for testing 
+		fillMediaList(); // Media List populated for testing 
 		view.Menu();
 	}
 
@@ -109,6 +111,7 @@ public class Controller {
 
 	}
 
+	// boolean that uses Regular expression to validate Email
 	static boolean isEmailValid(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
@@ -119,10 +122,37 @@ public class Controller {
 	// ----------------- View Customer - print arrayList with all details (test
 	// purposes )--------------------------
 	// @WillianVoelz
-	public void viewCustomer() {
+	public void displayCustomerList() {
 
 		System.out.println("All customers registered:");
-		System.out.println(customerList);
+		System.out.print(customerList);
+	}
+
+	// Display options for searching a customer and redirect to specific method
+	// afterwards.
+	public void searchForCustomer() {
+		scannerCustomer = new Scanner(System.in);
+
+		System.out.println(
+				"Please select Search: \n1- By Name \n2- By ID\n3- Display all customers(Testing purposes)\n4- Back to Menu");
+		int choice = scannerCustomer.nextInt();
+		if (choice == 1 || choice == 01) {
+			searchCustomerByName();
+		}
+		if (choice == 2 || choice == 02) {
+			searchCustomerByID();
+		}
+		if (choice == 3 || choice == 03) {
+			displayCustomerList();
+			view.exitQuestion();
+		}
+		if (choice == 4 || choice == 04) {
+			view.Menu();
+		} else {
+			System.out.println("Input option 1-4 only");
+			searchForCustomer();
+		}
+
 	}
 
 	// -------------- Search customer by NAME ------------------
@@ -146,7 +176,7 @@ public class Controller {
 		view.searchAnotherCustomer();
 	}
 
-	// -------------- Search customer by NAME ------------------
+	// -------------- Search customer by ID ------------------
 	// @WillianVoelz
 	public void searchCustomerByID() {
 
@@ -169,6 +199,7 @@ public class Controller {
 
 	}
 
+	// boolean that checks if customer being searched is in the array at all
 	public boolean isCustomerRegistered(int ID) {
 
 		for (Customer c : customerList) {
@@ -183,6 +214,29 @@ public class Controller {
 
 	}
 
+	// Menu with update options that redirect to specific function
+	public void updateCustomer() {
+		scannerCustomer = new Scanner(System.in);
+		System.out.println(
+				"Please select: \n1- Update customer Name: \n2- Update customer Email: \n3- Update customer Subscription: \n4- Back to Menu");
+		int choice = scannerCustomer.nextInt();
+		if (choice == 1 || choice == 01) {
+			updateCustomerName();
+		}
+		if (choice == 2 || choice == 02) {
+			updateCustomerEmail();
+		}
+		if (choice == 3 || choice == 03) {
+			updateSubscription();
+		}
+		if (choice == 4 || choice == 04) {
+			view.Menu();
+		} else {
+			System.out.println("Input option 1-4 only");
+			updateCustomer();
+		}
+	}
+
 	// -------------- Update customer Subscription using customer ID
 	// ------------------
 	// @WillianVoelz
@@ -194,7 +248,7 @@ public class Controller {
 			System.out.println("Customer not found.\n");
 			view.exitQuestion();
 		} else {
-
+			System.out.println(customerList.get(customerID - 1));
 			System.out.println("Update to: \n1-Music Lover \n2-VideoLover \n3-TVLover \n4-Premium");
 			int newSubscription = scannerCustomer.nextInt();
 
@@ -209,7 +263,8 @@ public class Controller {
 			}
 
 			System.out.println("Customer subscription updated");
-			view.exitQuestion();
+			view.updateAnotherCustomer();
+
 		}
 	}
 
@@ -222,6 +277,7 @@ public class Controller {
 			System.out.println("Customer not found.\n");
 			view.exitQuestion();
 		} else if (isCustomerRegistered(customerID)) {
+			System.out.println(customerList.get(customerID - 1));
 			scannerCustomer = new Scanner(System.in);
 			System.out.println("New name: ");
 			String newName = scannerCustomer.nextLine().toUpperCase();
@@ -229,7 +285,7 @@ public class Controller {
 			customerList.get(customerID - 1).setName(newName);
 
 			System.out.println("Customer Name updated");
-			view.exitQuestion();
+			view.updateAnotherCustomer();
 		}
 	}
 
@@ -243,6 +299,7 @@ public class Controller {
 			System.out.println("Customer not found.\n");
 			view.exitQuestion();
 		} else if (isCustomerRegistered(customerID)) {
+			System.out.println(customerList.get(customerID - 1));
 			scannerCustomer = new Scanner(System.in);
 			System.out.println("New Email: ");
 			String newEmail = scannerCustomer.nextLine().toUpperCase();
@@ -254,7 +311,7 @@ public class Controller {
 			customerList.get(customerID - 1).setEmail(newEmail);
 
 			System.out.println("Customer Email updated");
-			view.exitQuestion();
+			view.updateAnotherCustomer();
 		}
 	}
 
@@ -264,8 +321,9 @@ public class Controller {
 		Customer musicLover1 = new MusicLover(1, "RENAN", "RENAN@CCT.IE", MembershipOptions.MUSICLOVER, 0);
 		Customer videoLover1 = new VideoLover(2, "JORGE", "JORGE@CCT.IE", MembershipOptions.VIDEOLOVER, 0);
 		Customer TVLover1 = new TVLover(3, "MARTA", "MARTA@CCT.IE", MembershipOptions.TVLOVER, 0);
-		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM, 90);
-
+		// this customer is set to 100 loyalty points, so the next rent will be a free
+		// rent and counter restart - testing purposes
+		Customer premium1 = new Premium(4, "LEYLA", "LEYLA@CCT.IE", MembershipOptions.PREMIUM, 100);
 		customerList.add(musicLover1);
 		customerList.add(videoLover1);
 		customerList.add(TVLover1);
@@ -283,6 +341,27 @@ public class Controller {
 	// all the comments for "adding Media" methods in general are in the addMovie
 	// method
 	// only @EdwardsJr
+	public void addMedia() {
+		System.out.println(
+				"Please select the type of media to be added:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
+		scannerMedia = new Scanner(System.in);
+		int option = scannerMedia.nextInt();
+		if (option == 1) {
+			addMovie();
+		} else if (option == 2) {
+			addMusic();
+		} else if (option == 3) {
+			addLiveConcert();
+		} else if (option == 4) {
+			addBoxSet();
+		} else if (option == 5) {
+			view.Menu();
+		} else {
+			System.out.println("Input options 1-5 only!");
+			addMedia();
+		}
+	}
+
 	public void addMovie() {
 
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -519,6 +598,24 @@ public class Controller {
 
 	}
 
+	public void searchMedia() {
+		System.out.println(
+				"Please choose the kind of search: \n1 - Title \n2 - ID \n3 - List all available Media \n4- Main Menu");
+		scannerMedia = new Scanner(System.in);
+		int option1 = scannerMedia.nextInt();
+		if (option1 == 1) {
+			searchMediaName();
+		} else if (option1 == 2) {
+			searchMediaID();
+		} else if (option1 == 3) {
+			viewMediaList();
+		} else if (option1 == 4) {
+			view.Menu();
+		} else {
+			System.out.println("Input option 1-3 only!");
+		}
+	}
+
 	public void searchMediaName() {// @EdwardsJr
 
 		Media searchedMedia = null;
@@ -535,8 +632,7 @@ public class Controller {
 				System.out.println("Year: " + searchedMedia.getMediaReleaseYear());
 				System.out.println("Media Format: " + searchedMedia.getMediaType());
 				System.out.println("Membership type: " + searchedMedia.getMembershipOptions());
-				// TODO include a isAvailable return here and an option to rent the title from
-				// here
+
 				view.searchAnotherMedia();
 			}
 		}
@@ -625,16 +721,6 @@ public class Controller {
 	 *
 	 */
 
-	public void fillRentList() {// just for test purposes
-
-		Iterator<Rent> litr = rentedTitlesList.iterator();
-		System.out.println("Complete rent list:");
-		while (litr.hasNext()) {
-			System.out.println(litr.next());
-		}
-
-	}
-
 	public void addRent() {
 
 		LocalDate rentDate = LocalDate.now();// setting the date for now
@@ -643,6 +729,10 @@ public class Controller {
 		scannerCustomer = new Scanner(System.in);
 		System.out.println("Enter customer ID: ");
 		int customerID = scannerCustomer.nextInt();
+		if (!isCustomerIDexist(customerID)) {// method to check if customer exists
+			System.out.println("This customer ID doesn't exist!");
+			addRent();
+		}
 
 		for (Customer resultID : customerList) {
 			if (customerID == resultID.getID()) {
@@ -661,12 +751,16 @@ public class Controller {
 		System.out.println("Enter media ID: ");
 		int mediaID = scannerCustomer.nextInt();
 
+		if (!isMediaIDexist(mediaID)) {
+			System.out.println("This Media ID doesn't exist!");
+			addRent();
+		}
+
 		for (Media resultID : mediaList) {
 			if (mediaID == resultID.getMediaID()) {
 				System.out.println("Media ID: " + resultID.getMediaID());
 				System.out.println("Media Name " + resultID.getMediaName());
 				System.out.println("Media Format: " + resultID.getMediaType());
-				System.out.println("Media Type: " + resultID.getClass());
 
 				// new instance of the object MEDIA, so we can use all the details inside this
 				// method
@@ -708,16 +802,18 @@ public class Controller {
 				customerList.get(customerID - 1).add10PointsPerRent();
 				customer.setMediaRented(media);
 
-				System.out.println("\nMedia Rent confirmation: \nCustomer: " + customerID + "\nMedia: " + mediaID
-						+ "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate + "\nLoyalty Points: "
-						+ customer.getLoyaltyPoints());
-				
+				System.out.println("\nMedia Rent confirmation: \nCustomer: " + customer.getName() + "\nMedia: "
+						+ media.getMediaName() + "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate
+						+ "\nLoyalty Points: " + customer.getLoyaltyPoints());
+
+				getNumberOfTitlesRented();
+
 				media.setAvailable(false);// setting the availability to false after rent confirmation
 				rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() + 1, customerID, customer.getName(),
 						mediaID, media.getMediaName(), rentDate, returnDate, setMediaRented(media.getMediaID())));
-				
-				//adding the results to a new array, to collect only the rented titles and setting the media availability to FALSE
-				//rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() + 1, customer.getID(), customer.getName(), media.getMediaID(), media.getMediaName(), rentDate, returnDate, false));
+
+				// adding the results to a new array, to collect only the rented titles and
+				// setting the media availability to FALSE
 
 				view.exitQuestion();
 			}
@@ -734,17 +830,30 @@ public class Controller {
 		 * of the boolean found to true. Finally, it returns the sum of count.
 		 */
 		int count = 1;
-		boolean found = false;
 		for (int i = 0; i < rentedTitlesList.size(); i++) {
 
 			if (rentedTitlesList.contains(customer.getID()))
 				;
 			{
-				found = true;
 				count++;
 			}
-			found = false;
 		}
+		System.out.println("This is rental number: " + count);
+		return count;
+	}
+
+	public int decreaseOneRent() {
+
+		int count = 1;
+		for (int i = 0; i < rentedTitlesList.size(); i++) {
+
+			if (rentedTitlesList.contains(customer.getID()))
+				;
+			{
+				count--;
+			}
+		}
+		System.out.println("Counter reduced by 1");
 		return count;
 	}
 
@@ -753,13 +862,41 @@ public class Controller {
 		for (Media resultID : mediaList) {
 			if (id == resultID.getMediaID()) {
 				resultID.setAvailable(false);
-				// available = false;
 			} else {
 			}
 		}
 		return available;
 	}
+	// @WillianVoelz
+	// boolean to check if Customer is existent in the array at all
+	// Essential for renting process
 
+	public boolean isCustomerIDexist(int customerID) {
+
+		for (Customer resultID : customerList) {
+			if (customerID == resultID.getID()) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	// @WillianVoelz
+	// boolean to check if media is existent in the array at all
+	// Essential for renting process
+	public boolean isMediaIDexist(int mediaID) {
+
+		for (Media resultID : mediaList) {
+			if (mediaID == resultID.getMediaID()) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	// @WillianVoelz
 	// matches two parameters and return true(go ahead) or false(print exitMenu())
 	public boolean isMatchSubscription(int mediaID, int customerID) {
 		MembershipOptions customerSubscription = customerList.get(customerID - 1).getMembership();
@@ -773,6 +910,7 @@ public class Controller {
 		return false;
 	}
 
+	// @WillianVoelz
 	// if loyaltyPoints is equal or bigger than 100 - display free rent and set
 	// counter to zero;
 	public boolean freeRent(int customerID) {
@@ -785,43 +923,47 @@ public class Controller {
 		return false;
 	}
 
+	// method that sets availability of media to true so it can be rented again
 	public void returnRent() {
+		System.out.println("Please insert the ID of the title you want to return:");
+		int mediaID = scannerMedia.nextInt();
 
-		fillRentList();
-		
-//		System.out.println("Please inform your Name");
-//		String customerName = scannerCustomer.next();
-		
-		System.out.println("Please insert the name of the title your want to return:");
-		String mediaName = scannerMedia.next();
-		
-		for (Rent resultRent : rentedTitlesList) {
-			if(mediaName == resultRent.getMediaName()) {
-				rentedTitlesList.remove(resultRent);
+		for (Media media : mediaList) {
+			if (mediaID == media.getMediaID()) {
+				mediaList.get(mediaID - 1).setAvailable(true);
+				System.out.println(
+						"Media: " + media.getMediaName() + " was successfully returned! Media is now available");
+				view.exitQuestion();
+				// decreaseOneRent();
 			}
 		}
 
-//		for (Rent result : rentedTitlesList) {
-//			if (mediaName == result.getMediaName() && customerName == result.getCustumerName()) {
-//				System.out.println("Media Name = " + result.getMediaName());
-//				System.out.println("Rented Date = " + result.getRentDate());
-//				System.out.println("Customer name: " + result.getCustumerName());
-//				
-//				result.setAvailable(true);
-//			}
+	}
 
-		fillRentList();
-			
-		}
-		
+	// @WillianVoelz
 	// option 8 in the Menu (it returns loyaltyPoints of the requested customerID;
 	public void checkLoyaltyPoints() {
 		scannerCustomer = new Scanner(System.in);
 		System.out.println("Input customer ID:");
 		int customerID = scannerCustomer.nextInt();
+		if (!isCustomerIDexist(customerID)) {
+			System.out.println("This customer ID doesn't exist!");
+			checkLoyaltyPoints();
+		}
 		int loyaltyPoints = customerList.get(customerID - 1).getLoyaltyPoints();
 		System.out.println("CustomerID : " + customerID + " has " + loyaltyPoints + " Loyalty points!");
 		view.exitQuestion();
+	}
+
+	// Display rentedTitlesList - testing only
+	public void fillRentList() {// just for test purposes
+
+		Iterator<Rent> litr = rentedTitlesList.iterator();
+		System.out.println("Complete rent list:");
+		while (litr.hasNext()) {
+			System.out.println(litr.next());
+		}
+
 	}
 
 }

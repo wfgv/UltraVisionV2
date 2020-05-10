@@ -2,6 +2,9 @@ package rent;
 
 import java.time.LocalDate;
 
+import model.customer.Customer;
+import model.media.Media;
+
 public class Rent {
 
 	private int rentID;
@@ -12,9 +15,11 @@ public class Rent {
 	private LocalDate rentDate;
 	private LocalDate returnDate;
 	private boolean isAvailable;
-	
-	
-	public Rent(int rentID, int customerID, String customerName, int mediaID, String mediaName, LocalDate rentDate, LocalDate returnDate, boolean isAvailable) {
+	private Customer customer;
+	private Media media;
+
+	public Rent(int rentID, int customerID, String customerName, int mediaID, String mediaName, LocalDate rentDate,
+			LocalDate returnDate, boolean isAvailable) {
 		super();
 		this.rentID = rentID;
 		this.customerID = customerID;
@@ -26,8 +31,14 @@ public class Rent {
 		this.isAvailable = isAvailable;
 	}
 
-	
-	
+	public Rent(Customer customer, Media media, LocalDate rentDate, LocalDate returnDate) {
+		super();
+		this.customer = customer;
+		this.media = media;
+		this.rentDate = rentDate;
+		this.returnDate = returnDate;
+	}
+
 	public String getCustumerName() {
 		return custumerName;
 	}
@@ -95,11 +106,9 @@ public class Rent {
 
 	@Override
 	public String toString() {
-		return "\nRent List: Rent ID: " + rentID + "\nCustomer ID: " + customerID + "\nCustomer Name: " + custumerName + "\nMedia ID: "
-				+ mediaID + "\nMedia Title: " + mediaName + "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate
-				+ "\nAvailability: " + isAvailable + "";
+		return "\nRent List: Rent ID: " + rentID + "\nCustomer ID: " + customerID + "\nCustomer Name: " + custumerName
+				+ "\nMedia ID: " + mediaID + "\nMedia Title: " + mediaName + "\nRent Date: " + rentDate
+				+ "\nReturn Date: " + returnDate + "\nAvailability: " + isAvailable + "";
 	}
-	
-	
-	
+
 }

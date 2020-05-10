@@ -1,4 +1,8 @@
 package view;
+/**
+ *@author WillianVoelz2018447
+ *@author @EdwardsJr2018245
+ */
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -22,14 +26,14 @@ public class View {
 	// @WillianVoelz
 	public void printMenu() {
 		System.out.println("* Ultra Vision *");
-		System.out.println("\nPlease select one of the following options");
-		System.out.println("\n1 - Add Customer");
+		System.out.println("\nPlease select one of the following options \n");
+		System.out.println("1 - Add Customer");
 		System.out.println("2 - Search Customer");
 		System.out.println("3 - Update Customer");
-		System.out.println("4 - Add Title");
-		System.out.println("5 - Search Title");
-		System.out.println("6 - Rent Title");
-		System.out.println("7 - Return Title");
+		System.out.println("4 - Add Media");
+		System.out.println("5 - Search Media");
+		System.out.println("6 - Rent Media");
+		System.out.println("7 - Return Media");
 		System.out.println("8 - Check Loyalty Points");
 		System.out.println("9 - Exit");
 	}
@@ -59,90 +63,47 @@ public class View {
 				menuOption = new Scanner(System.in);// initialise Scanner for options inside the switch menu @EdwardsJr
 
 				switch (choice) {
-				case 1:
-					System.out.println("Option 1: Add New Customer: ");
+				case 1: // @WillianVoelz
+					System.out.println("Option 1: Add New Customer: \n");
 					controller.addCustomer();
 					break;
-				case 2:
-					controller.viewCustomer();
-					System.out.println("Option 2: Search for Customer: ");
-					System.out.println("Please select Search: \n1- Name \n2- ID");
-					choice = myScanner.nextInt();
-					if (choice == 1 || choice == 01) {
-						controller.searchCustomerByName();
-					}
-					if (choice == 2 || choice == 02) {
-						controller.searchCustomerByID();
-					}
-					if (choice == 3 || choice == 03) {
-						printMenu();
-					} else {
-						printMenu();
-					}
+				case 2: // @WillianVoelz
+					System.out.println("Option 2: Search for Customer: \n");
+					controller.searchForCustomer();
 					break;
-				case 3:
-					System.out.println("Option 3: Update Customer ");
-					System.out.println(
-							"Please select: \n1-Update customer Name: \n2-Update customer Email: \n3- Update customer Subscription: ");
-					choice = myScanner.nextInt();
-					if (choice == 1 || choice == 01) {
-						controller.updateCustomerName();
-					}
-					if (choice == 2 || choice == 02) {
-						controller.updateCustomerEmail();
-					}
-					if (choice == 3 || choice == 03) {
-						controller.updateSubscription();
-					} else {
-						printMenu();
-					}
+				case 3: // @WillianVoelz
+					System.out.println("Option 3: Update Customer \n");
+					controller.updateCustomer();
 					break;
 				case 4:// add media @EdwardsJr
-					System.out.println(
-							"Please select the type of media to be added:  \n1 - Movie \n2 - Music \n3 - Live Concert \n4 - BoxSet \n5 - Return to Main Menu");
-					int option = menuOption.nextInt();
-					if (option == 1) {
-						controller.addMovie();
-					} else if (option == 2) {
-						controller.addMusic();
-					} else if (option == 3) {
-						controller.addLiveConcert();
-					} else if (option == 4) {
-						controller.addBoxSet();
-					} else if (option == 5) {
-						printMenu();
-					}
+					System.out.println("Option 4: Add New Media \n");
+					controller.addMedia();
 					break;
 				case 5:// search media @EdwardsJr
-					System.out.println("Please choose the kind of search: \n1 - Title \n2 - ID \n3 - List all available Media");
-					int option1 = menuOption.nextInt();
-					if (option1 == 1) {
-						controller.searchMediaName();
-					} else if (option1 == 2) {
-						controller.searchMediaID();
-					} else {
-						controller.viewMediaList();
-					}
+					System.out.println("Option 5: Search Media: \n");
+					controller.searchMedia();
 					break;
 				case 6:
-					System.out.println("Rent Title");
+					System.out.println("Rent Title \n");
 					controller.addRent();
 					break;
 				case 7:
-					System.out.println("Return Title");
+					System.out.println("Return Title \n");
 					controller.returnRent();
 					break;
-				case 8:
-					System.out.println("Membership Options");
+				case 8: // @WillianVoelz
+					System.out.println("Check Loyalty Points \n");
 					controller.checkLoyaltyPoints();
 					break;
 				case 9:
 					System.out.println("Ultra Vision terminated");
+					System.exit(choice);
 					exitMainMenu = true;
+					
 					break;
 				default:
-					System.out.println("Please enter a valid number");
-					break;
+					System.out.println("Please enter a valid option");
+					break;// catch for wrong input like any other number
 				}
 
 			} catch (InputMismatchException e) {
@@ -194,8 +155,7 @@ public class View {
 	// @WillianVoelz
 	public void searchAnotherCustomer() {
 
-		System.out.println(
-				"\nPress: \n1 to Menu  \n2 to search Another Customer by Name \n3 Search another customer by ID ");
+		System.out.println("\nPress: \n1- Back to Menu  \n2- Search for another customer\n");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
 
@@ -204,11 +164,27 @@ public class View {
 
 		} else if (choice == 2 || choice == 02) {
 
-			controller.searchCustomerByName();
-		} else if (choice == 3 || choice == 03) {
-
-			controller.searchCustomerByID();
+			controller.searchForCustomer();
 		} else {
+			System.out.println("Input option 1-2 only");
+			searchAnotherCustomer();
+		}
+
+	}
+
+	public void updateAnotherCustomer() {
+		System.out.println("\nPress: \n1- Back to Menu  \n2- Update another customer\n");
+		myScanner = new Scanner(System.in);
+		int choice = myScanner.nextInt();
+
+		if (choice == 1 || choice == 01) {
+			Menu();
+
+		} else if (choice == 2 || choice == 02) {
+
+			controller.updateCustomer();
+		} else {
+			System.out.println("Input option 1-2 only");
 			searchAnotherCustomer();
 		}
 
@@ -217,7 +193,8 @@ public class View {
 	// add another media or go back to menu
 	// @EdwardsJr
 	public void addAnotherMediaDialog() {
-		System.out.println("\nChoose: \n1 Menu \n2 Add Movie \n3 Add Music \n4 Add Live Concert \n5 Add Box Set");
+		System.out.println(
+				"\nChoose: \n1 - Menu \n2 - Add Movie \n3 - Add Music \n4 - Add Live Concert \n5 - Add Box Set");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
 
@@ -245,7 +222,7 @@ public class View {
 	// @EdwardsJr
 	public void searchAnotherMedia() {
 
-		System.out.println("\nChoose: \n1 Menu \n2 Search Media by Name \n3 Search Media by ID");
+		System.out.println("\nChoose: \n1 - Menu \n2 - Search Media by Name \n3 - Search Media by ID");
 		myScanner = new Scanner(System.in);
 		int choice = myScanner.nextInt();
 
