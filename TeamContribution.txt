@@ -1,0 +1,28 @@
+Git Handle
+@wfgv
+@martinsjr1976
+project Name: UltraVisionV2
+https://github.com/wfgv/UltraVisionV2
+
+Personal Contribution for UltraVisionV2 project:
+
+@WillianVoelz - 2018447
+Customer related classes and methods
+Customer(MovieLover, MusicLover, TVLover, Premium);
+MembershipOptions enum
+
+@Edwards - 2018245
+Media related classes and methods
+Media (Movie, Music, BoxSet, Live Concert)
+Media enum format
+
+Collaborative coding
+Rent class and related methods
+Menu implementation in View class
+
+Note: Both contributors of this project were constantly in touch via collaborative platforms including: 
+
+Code Together 
+Google Hangouts 
+Team Viewer 
+Office 365 

@@ -1,4 +1,4 @@
-package rent;
+package model.rent;
 
 import java.time.LocalDate;
 

@@ -26,7 +26,7 @@ import model.media.LiveConcert;
 import model.media.Media;
 import model.media.Movie;
 import model.media.Music;
-import rent.Rent;
+import model.rent.Rent;
 import view.View;
 
 public class Controller {
