@@ -574,6 +574,7 @@ public class Controller {
 		// the list handles all kinds of Media
 		// no need to set format for Music objects, because it is defined in the
 		// constructor -> can only be CD
+		// all media were set availability to TRUE at the moment of its creation
 		mediaList.add(new Movie(1, "BACURAU", Format.BluRay, 1995, "HORROR", "HITCHCOCK", MembershipOptions.VIDEOLOVER,
 				true));
 		mediaList.add(new Movie(2, "PARASITE", Format.DVD, 2019, "THRILLER", "PT ANDERSON",
@@ -621,11 +622,12 @@ public class Controller {
 	/*
 	 * -------- From this point, all methods are related to Rent manipulation.
 	 * 
-	 * @EdwardsJr AND @WillianVoelz---------
+	 * @EdwardsJr AND @WillianVoelz--------- all the methods from this point were
+	 * implemented together
 	 *
 	 */
 
-	public void fillRentList() {// just for test purposes
+	public void fillRentList() {// just for test purposes, used in the returnTitle method
 
 		Iterator<Rent> litr = rentedTitlesList.iterator();
 		System.out.println("Complete rent list:");
@@ -711,13 +713,12 @@ public class Controller {
 				System.out.println("\nMedia Rent confirmation: \nCustomer: " + customerID + "\nMedia: " + mediaID
 						+ "\nRent Date: " + rentDate + "\nReturn Date: " + returnDate + "\nLoyalty Points: "
 						+ customer.getLoyaltyPoints());
-				
+
 				media.setAvailable(false);// setting the availability to false after rent confirmation
 				rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() + 1, customerID, customer.getName(),
 						mediaID, media.getMediaName(), rentDate, returnDate, setMediaRented(media.getMediaID())));
-				
-				//adding the results to a new array, to collect only the rented titles and setting the media availability to FALSE
-				//rentedTitlesList.add(new Rent(mediaID = rentedTitlesList.size() + 1, customer.getID(), customer.getName(), media.getMediaID(), media.getMediaName(), rentDate, returnDate, false));
+				// adding the results to a new array, to collect only the rented titles and
+				// setting the media availability to FALSE
 
 				view.exitQuestion();
 			}
@@ -788,15 +789,15 @@ public class Controller {
 	public void returnRent() {
 
 		fillRentList();
-		
+
 //		System.out.println("Please inform your Name");
 //		String customerName = scannerCustomer.next();
-		
+
 		System.out.println("Please insert the name of the title your want to return:");
 		String mediaName = scannerMedia.next();
-		
+
 		for (Rent resultRent : rentedTitlesList) {
-			if(mediaName == resultRent.getMediaName()) {
+			if (mediaName == resultRent.getMediaName()) {
 				rentedTitlesList.remove(resultRent);
 			}
 		}
@@ -811,9 +812,9 @@ public class Controller {
 //			}
 
 		fillRentList();
-			
-		}
-		
+
+	}
+
 	// option 8 in the Menu (it returns loyaltyPoints of the requested customerID;
 	public void checkLoyaltyPoints() {
 		scannerCustomer = new Scanner(System.in);
