@@ -1,5 +1,7 @@
 package model.customer;
 
+// simple enum that stores subscription options 
+//@WillianVoelz
 public enum MembershipOptions {
 	
 	MUSICLOVER(" Music CDs and Live Concert Videos "),

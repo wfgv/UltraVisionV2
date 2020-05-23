@@ -12,7 +12,7 @@ public class Premium extends Customer {
 	
 	@Override
 	public String toString() {
-		return "\nCustomer ID: " + this.customerID + " Name: "+this.customerName + " Email: "+this.customerEmail + " Subscription: " + this.membershipOptions+ "Loyalty Points: " + this.loyaltyPoints;
+		return "\nCustomer ID: " + this.customerID + " | Name: "+this.customerName + " | Email: "+this.customerEmail + " | Subscription: " + this.membershipOptions+ " | Loyalty Points: " + this.loyaltyPoints;
 	}
 
 }
